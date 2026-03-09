@@ -13,10 +13,10 @@ export default defineConfig({
 
   themeConfig: {
     nav: [
-      { text: 'About', link: '/#about' },
-      { text: 'Blog', link: '/blog/' },
-      { text: 'Projects', link: '/projects/' },
-      { text: 'Contact', link: '/#contact' },
+      { text: '关于', link: '/#about' },
+      { text: '博客', link: '/blog/' },
+      { text: '项目', link: '/projects/' },
+      { text: '联系', link: '/#contact' },
     ],
 
     sidebar: {
@@ -39,11 +39,11 @@ export default defineConfig({
     },
 
     socialLinks: [
-      { icon: 'github', link: 'https://github.com/yourusername' },
+      { icon: 'github', link: 'https://github.com/lotus-pjq' },
     ],
 
     footer: {
-      message: '基于 VitePress 构建',
+      message: '基于 VitePress 构建，持续整理算法、建模与项目记录',
       copyright: 'Copyright © 2024-present'
     },
 
