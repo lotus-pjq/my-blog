@@ -1,0 +1,58 @@
+---
+title: 最长公共子串(LCS)
+date: 2026-03-09
+category: 动态规划
+tags:
+  - 算法
+description: 最长公共子串(LCS)相关的算法笔记和代码模板
+---
+
+## 最长公共子串(Longest Common Substring)
+- ## 分析：
+	- 
+	- 
+	- 
+- ## Code1:只输出最长长度
+	- ```C++
+	  #include<bits/stdc++.h>
+	  using namespace std;
+	  string a,b;
+	  int n,m,f[201][201];
+	  signed main(){
+	  	cin>>n>>m>>a>>b;
+	  	a=' '+a;b=' '+b;
+	  	int ans=0;
+	  	for(int i=1;i<=n;i++)
+	  		for(int j=1;j<=m;j++){
+	  			if(a[i]==b[j]) f[i][j]=f[i-1][j-1]+1;
+	  			else f[i][j]=0;
+	  			ans=max(ans,f[i][j]);
+	  		}
+	  	cout<<ans;
+	  	return 0;
+	  }
+	  ```
+- ## Code2:输出最长公共子串
+	- ```C++
+	  #include<bits/stdc++.h>
+	  using namespace std;
+	  string a,b;
+	  int n,m,f[201][201];
+	  signed main(){
+	  	cin>>n>>m>>a>>b;
+	  	a=' '+a;b=' '+b;
+	  	int len=0,pos=-1;
+	  	for(int i=1;i<=n;i++)
+	  		for(int j=1;j<=m;j++){
+	  			if(a[i]==b[j]) f[i][j]=f[i-1][j-1]+1;
+	  			else f[i][j]=0;
+	  			if(f[i][j]>len){
+	  				len=f[i][j];
+	  				pos=i;
+	  			}
+	  		}
+	  	cout<<len<<endl;
+	  	for(int i=pos-len+1;i<=pos;i++) cout<<a[i];
+	  	return 0;
+	  }
+	  ```

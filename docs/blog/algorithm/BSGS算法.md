@@ -1,0 +1,166 @@
+---
+title: BSGS算法
+date: 2026-03-09
+category: 数论
+tags:
+  - 算法
+description: BSGS算法相关的算法笔记和代码模板
+---
+
+## BSGS
+	- ### 分析
+		- #### 作用：求解高次同余方程 $$a^x≡b (mod p)$$的最小非负整数x，其中$$a,p$$互质
+		- #### 时间复杂度：O(√n)
+		- #### BSGS : Baby Step Giant Step
+	- ### 知识点
+		- 
+	- ### 模版题 (P3846)
+		- 题目
+			- # P3846 [TJOI2007] 可爱的质数/【模板】BSGS
+			- ## 题目描述
+			  给定一个质数 $p$，以及一个整数 $b$，一个整数 $n$，现在要求你计算一个最小的非负整数 $l$，满足 $b^l \equiv n \pmod p$。
+			- ## 输入格式
+			  仅一行，有 $3$ 个整数，依次代表 $p, b, n$。
+			- ## 输出格式
+			  仅一行，如果有 $l$ 满足该要求，输出最小的 $l$，否则输出 `no solution`。
+			- ## 输入输出样例 1
+			- ### 输入 1
+			  ```
+			  5 2 3
+			  ```
+			- ### 输出 1
+			  ```
+			  3
+			  ```
+			- ## 说明/提示
+			- #### 数据规模与约定
+			- 对于所有的测试点，保证 $2\le b < p<2^{31}$，$1\leq n<p$。
+		- 代码
+			- ```C++
+			  #include<bits/stdc++.h>
+			  using namespace std;
+			  #define int long long
+			  #define endl '\n'
+			  const int N=2e5+5;
+			  //求同余方程a^x≡b (modp)的最小非负整数x,其中a,p互质
+			  int BSGS(int a,int b,int p){
+			  	a%=p,b%=p;
+			  	if(b==1) return 0;//x=0
+			  	int m=ceil(sqrt(p));
+			  // a^x≡b <=> a^(i*m-j)≡b <=> (a^m)^i≡b*a^j
+			  	int t=b,mi=1;
+			  	unordered_map<int,int> hash;
+			  	hash[b]=0;
+			  	for(int j=1;j<m;j++){//枚举b*a^j
+			  		t=t*a%p;
+			  		hash[t]=j;
+			  	}
+			  	for(int i=1;i<=m;i++)//计算a^m
+			  		mi=mi*a%p;
+			  	t=1;
+			  	for(int i=1;i<=m;i++){//枚举(a^m)^i
+			  		t=t*mi%p;
+			  		if(hash.count(t)) return i*m-hash[t];
+			  	}
+			  	return -1;//无解
+			  }
+			  signed main(){
+			      ios::sync_with_stdio(false);
+			      cin.tie(nullptr);
+			  	int a,b,p;cin>>p>>a>>b;
+			  	int res=BSGS(a,b,p);
+			  	if(res==-1) cout<<"no solution";
+			  	else cout<<res;
+			      return 0;
+			  }
+			  ```
+- ## 扩展BSGS
+	- ### 分析
+		- #### 作用：求解高次同余方程 $$a^x≡b (mod p)$$的最小非负整数x
+		- #### 时间复杂度：O(√n）
+	- ### 知识点
+		- 
+	- ### 模板题 (P4195)
+		- 题目
+			- # P4195 【模板】扩展 BSGS/exBSGS
+			- ## 题目背景
+			  题目来源：SPOJ3105 Mod
+			- ## 题目描述
+			  给定 $a,p,b$，求满足 $a^x≡b \pmod p$ 的最小自然数 $x$ 。
+			- ## 输入格式
+			  每个测试文件中包含若干组测试数据，保证 $\sum \sqrt p\le 5\times 10^6$。
+			  每组数据中，每行包含 $3$ 个正整数 $a,p,b$ 。
+			  当 $a=p=b=0$ 时，表示测试数据读入完全。
+			- ## 输出格式
+			  对于每组数据，输出一行。
+			  如果无解，输出 `No Solution`，否则输出最小自然数解。
+			- ## 输入输出样例 1
+			- ### 输入 1
+			  ```
+			  5 58 33
+			  2 4 3
+			  0 0 0
+			  ```
+			- ### 输出 1
+			  ```
+			  9
+			  No Solution
+			  ```
+			- ## 说明/提示
+			  对于 $100\%$ 的数据，$1\le a,p,b≤10^9$ 或 $a=p=b=0$。
+			  2021/5/14 加强 by [SSerxhs]  
+			  2021/7/1 新添加[一组 Hack 数据]
+		- 代码
+			- ```C++
+			  #include<bits/stdc++.h>
+			  using namespace std;
+			  #define int long long
+			  #define endl '\n'
+			  int gcd(int a,int b){
+			  	int tmp;
+			  	while(b!=0){tmp=a%b;a=b;b=tmp;}
+			  	return a;
+			  }
+			  int EX_BSGS(int a,int b,int p){
+			  	a%=p,b%=p;
+			  	if(b==1||p==1) return 0;//x=0
+			  	int g,k=0,A=1;
+			  	while(true){
+			  		g=gcd(a,p);
+			  		if(g==1) break;
+			  		if(b%g) return -1;//显然无解
+			  		k++;
+			  		b/=g,p/=g;
+			  		A=A*(a/g)%p;//A=a^k/D
+			  		if(A==b) return  k;
+			  	}
+			  	int m=ceil(sqrt(p));
+			  	int t=b,mi=1;
+			  	unordered_map<int,int> hash;
+			  	hash[b]=0;
+			  	for(int j=1;j<m;j++){//枚举b*a^j
+			  		t=t*a%p;
+			  		hash[t]=j;
+			  	}
+			  	for(int i=1;i<=m;i++)//计算a*m
+			  		mi=mi*a%p;
+			  	t=A;
+			  	for(int i=1;i<=m;i++){//枚举(a^m)^i
+			  		t=t*mi%p;
+			  		if(hash.count(t)) return i*m-hash[t]+k;
+			  	}
+			  	return -1;//无解
+			  }
+			  signed main(){
+			      ios::sync_with_stdio(false);
+			      cin.tie(nullptr);
+			  	int a,b,p;
+			  	while(cin>>a>>p>>b&&a){
+			  		int res=EX_BSGS(a,b,p);//求满足 a^x=b(modp)的最小非负整数x
+			  		if(res==-1) cout<<"No Solution"<<endl;
+			  		else cout<<res<<endl;
+			  	}
+			      return 0;
+			  }
+			  
+			  ```

@@ -1,0 +1,80 @@
+---
+title: 2018ICPC南京区域赛-J
+date: 2026-03-09
+category: 题解
+tags:
+  - 算法
+description: 2018ICPC南京区域赛-J相关的算法笔记和代码模板
+---
+
+- 题目
+	- 
+- 思路
+	- 
+- 代码
+	- ```C++
+	  #include<bits/stdc++.h>
+	  using namespace std;
+	  #define int long long
+	  #define endl '\n'
+	  const int N=1e6+5;
+	  int pnum;
+	  vector<int> pri;
+	  vector<int> mpf,phi;//min prime factor
+	  void get_prime(int n){
+	    mpf.resize(n+1,0);
+	    phi.resize(n+1,0);phi[1]=1;
+	    for(int i=2;i<=n;i++){
+	      if(mpf[i]==0){
+	        mpf[i]=i,phi[i]=i-1,pnum++,pri.push_back(i);}
+	      for(int p:pri){
+	        if(i*p>n) break;
+	        mpf[i*p]=p;
+	        if(mpf[i]==p){phi[p*i]=phi[i]*p;break;}
+	        else phi[i*p]=phi[i]*(p-1);
+	      }
+	    }
+	  }
+	  int n,a[N];
+	  vector<int> pos[N];
+	  set<int> occ;
+	  signed main(){
+	  	ios::sync_with_stdio(false);
+	  	cin.tie(nullptr);
+	  	get_prime(N);
+	  	cin>>n;
+	  	for(int i=1;i<=n;i++) cin>>a[i];
+	  	for(int i=1,x,p;i<=n;i++){
+	  		x=a[i];
+	  		if(x==1) continue;
+	  		while(x>1){
+	  			p=mpf[x];
+	  			pos[p].push_back(i);
+	  			occ.insert(p);
+	  			while(x%p==0) x/=p;
+	  		}
+	  	}
+	  	int tot=(n+1)*n/2;
+	  	int ans=0;
+	  	for(int prim:occ){
+	  		int cnt=0;
+	  		int last=0,l,r,len;
+	  		for(int p:pos[prim]){
+	  			l=last+1,r=p-1;
+	  			if(l<=r){
+	  				len=r-l+1;
+	  				cnt+=len*(len+1)/2;
+	  			}
+	  			last=p;
+	  		}
+	  		if(last<n){
+	  			l=last+1,r=n;
+	  			len=r-l+1;
+	  			cnt+=len*(len+1)/2;
+	  		}
+	  		ans+=tot-cnt;
+	  	}
+	  	cout<<ans<<endl;
+	  	return 0;
+	  }
+	  ```

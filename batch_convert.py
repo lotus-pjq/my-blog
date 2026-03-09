@@ -133,6 +133,13 @@ def clean_logseq_syntax(content):
     content = re.sub(r'^\s*TODO\s+', '', content, flags=re.MULTILINE)
     content = re.sub(r'^\s*DONE\s+', '', content, flags=re.MULTILINE)
     
+    # 移除Logseq图片属性语法 {:height xxx, :width xxx}
+    content = re.sub(r'\{:height\s+\d+,\s*:width\s+\d+\}', '', content)
+    content = re.sub(r'\{:[^}]+\}', '', content)
+    
+    # 移除图片引用（避免路径问题）
+    content = re.sub(r'!\[([^\]]*)\]\([^\)]+\)', r'', content)
+    
     return content
 
 def extract_title(filename, content):
@@ -195,10 +202,8 @@ def convert_file(source_path, target_dir):
         # 组合最终内容
         final_content = frontmatter + content
         
-        # 生成目标文件名（转换为URL友好格式）
-        target_filename = filename.lower()
-        target_filename = re.sub(r'[^\w\s-]', '', target_filename)
-        target_filename = re.sub(r'[-\s]+', '-', target_filename)
+        # 生成目标文件名（保持原样，只做基本清理）
+        target_filename = filename
         
         # 保存文件
         target_path = os.path.join(target_dir, target_filename)
