@@ -29,44 +29,44 @@ title: Blog
 
     <article class="page-card">
       <div class="post-meta"><span>Algorithm</span><span>2026-03-09</span><span>算法模板</span></div>
-      <h3><a href="./algorithm/game-theory-guide">博弈论完全指南：从必胜必败到SG函数</a></h3>
+      <h3><a href="./algorithm/博弈论">博弈论完全指南：从必胜必败到SG函数</a></h3>
       <p>系统总结博弈论中的必胜必败分析、SG函数理论及常见博弈模型，包含完整的代码模板和经典例题。</p>
     </article>
 
     <article class="page-card">
       <div class="post-meta"><span>Algorithm</span><span>2026-03-09</span><span>算法模板</span></div>
-      <h3><a href="./algorithm/linear-basis-guide">线性基完全指南：从高斯消元到贪心构造</a></h3>
+      <h3><a href="./algorithm/线性基">线性基完全指南：从高斯消元到贪心构造</a></h3>
       <p>详解线性基的多种构造方法、性质分析及经典应用，包含高斯消元、贪心法、前缀线性基等完整模板。</p>
     </article>
 
     <article class="page-card">
       <div class="post-meta"><span>Algorithm</span><span>2026-03-09</span><span>算法模板</span></div>
-      <h3><a href="./algorithm/heavy-light-decomposition">树链剖分完全指南：从理论到实战</a></h3>
+      <h3><a href="./algorithm/树链剖分">树链剖分完全指南：从理论到实战</a></h3>
       <p>详解树链剖分的原理、实现和应用，包含完整的代码模板和复杂度证明。</p>
     </article>
 
     <article class="page-card">
-      <div class="post-meta"><span>Algorithm</span><span>2026-03-01</span><span>题解方法</span></div>
-      <h3><a href="./algorithm-structured-thinking">算法竞赛中的结构化思维</a></h3>
-      <p>从笛卡尔树到状态搜索，整理我在比赛里如何把直觉变成可复用解题路径。</p>
+      <div class="post-meta"><span>Algorithm</span><span>2026-03-09</span><span>数据结构</span></div>
+      <h3><a href="./algorithm/莫队算法">莫队算法详解</a></h3>
+      <p>离线处理区间查询问题的经典算法，包含普通莫队、带修莫队等多种变体。</p>
     </article>
 
     <article class="page-card">
-      <div class="post-meta"><span>Modeling</span><span>2026-02-24</span><span>研究笔记</span></div>
-      <h3><a href="./battery-soc-modeling">连续时间电池 SOC 建模笔记</a></h3>
-      <p>把二阶 RC、KiBaM 和温度修正项收进同一个研究框架，方便后续扩展和实验验证。</p>
+      <div class="post-meta"><span>Algorithm</span><span>2026-03-09</span><span>图论</span></div>
+      <h3><a href="./algorithm/LCA">LCA最近公共祖先</a></h3>
+      <p>树上查询两节点最近公共祖先的多种算法实现，包含倍增、Tarjan等方法。</p>
     </article>
 
     <article class="page-card">
-      <div class="post-meta"><span>Design</span><span>2026-02-17</span><span>设计记录</span></div>
-      <h3><a href="./blog-as-portfolio">把个人博客做得更像作品集</a></h3>
-      <p>讨论技术博客如何在保留专业感的同时，建立更清晰的个人视觉语言。</p>
+      <div class="post-meta"><span>Algorithm</span><span>2026-03-09</span><span>数学</span></div>
+      <h3><a href="./algorithm/FFT">FFT快速傅里叶变换</a></h3>
+      <p>多项式乘法的高效算法，O(nlogn)时间复杂度，包含完整实现和应用场景。</p>
     </article>
 
     <article class="page-card">
-      <div class="post-meta"><span>Tutorial</span><span>2024-03-08</span><span>技术教程</span></div>
-      <h3><a href="./vitepress-blog-guide">使用 VitePress 搭建个人博客完整指南</a></h3>
-      <p>从初始化、主题配置到 GitHub Pages 自动部署，适合作为这个博客的搭建底稿。</p>
+      <div class="post-meta"><span>Algorithm</span><span>2026-03-09</span><span>动态规划</span></div>
+      <h3><a href="./algorithm/背包专题">背包专题</a></h3>
+      <p>01背包、完全背包、多重背包等经典DP问题的系统总结和优化技巧。</p>
     </article>
 
     <article class="page-card page-card--wide">
