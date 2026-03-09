@@ -9,94 +9,95 @@ outline: deep
 
 ### D #DSU
 - 题目- 
-  - 
 - 思路- 
 - 代码1(标程)
 
 ```C++
-		  #include
-		  using namespace std;
-		  #define int long long
-		  #define endl '\n'
-		  #define INF 0x3f3f3f3f3f3f3f3f
-		  const int N=3e5+5;
-		  int a[N],d[N];
-		  void solve(){
-		  	int n;cin>>n;
-		  	for(int i=1;i>a[i];
-		  	for(int i=1;i>d[i];
-		  	a[0]=a[n+1]=0;	
-		  	d[0]=d[n+1]=INF;
-		  	set rem,cur;//rem:剩下的，cur:目前候选的
-		  	for(int i=0;i del,nex;//del:删除的,ncur:下一轮加入候选的
-		  		for(int i:cur){
-		  			auto it=rem.find(i);
-		  			if(it==rem.end()) continue;//i已经死了
-		  			int prv=*prev(it);
-		  			int nxt=*next(it);
-		  			if(a[prv]+a[nxt]>d[i]){
-		  				del.insert(i);
-		  				nex.insert(prv);
-		  				nex.insert(nxt);
-		  			}
-		  		}
-		  		cout>t;
-		      while(t--) solve();
-		      return 0;
-		  }
-		  ```
+#include
+using namespace std;
+#define int long long
+#define endl '\n'
+#define INF 0x3f3f3f3f3f3f3f3f
+const int N=3e5+5;
+int a[N],d[N];
+void solve(){
+  int n;cin>>n;
+  for(int i=1;i>a[i];
+  for(int i=1;i>d[i];
+  a[0]=a[n+1]=0;  
+  d[0]=d[n+1]=INF;
+  set rem,cur;//rem:剩下的，cur:目前候选的
+  for(int i=0;i del,nex;//del:删除的,ncur:下一轮加入候选的
+    for(int i:cur){
+      auto it=rem.find(i);
+      if(it==rem.end()) continue;//i已经死了
+      int prv=*prev(it);
+      int nxt=*next(it);
+      if(a[prv]+a[nxt]>d[i]){
+        del.insert(i);
+        nex.insert(prv);
+        nex.insert(nxt);
+      }
+    }
+    cout>t;
+    while(t--) solve();
+    return 0;
+}
+```
 - 代码2(林大神)- 
-- ### E #分治 #按位 #构造
+### E #分治 #按位 #构造
 - 题目
   - 构造一个长度不超过200的序列，使得其递增子序列数量为X，空串算一个子串。（2
-		  using namespace std;
-		  #define int long long
-		  #define endl '\n'
-		  #define pb push_back
-		  vector ans;
-		  void f(int x){
-		  	if(x==2) ans.pb(0);
-		  	else if(x&1){
-		  		f(x-1);
-		  		ans.pb(*min_element(ans.begin(),ans.end())-1);
-		  	}else{
-		  		f(x>>1);
-		  		ans.pb(*max_element(ans.begin(),ans.end())+1);
-		  	}
-		  }
-		  void solve(){
-		  	int x;cin>>x;
-		  	ans.clear();
-		  	f(x);
-		  	cout>t;
-		      while(t--) solve();
-		      return 0;
-		  }
-		  
-		  ```
+using namespace std;
+#define int long long
+#define endl '\n'
+#define pb push_back
+vector ans;
+void f(int x){
+if(x==2) ans.pb(0);
+else if(x&1){
+f(x-1);
+ans.pb(*min_element(ans.begin(),ans.end())-1);
+}else{
+f(x>>1);
+ans.pb(*max_element(ans.begin(),ans.end())+1);
+}
+}
+void solve(){
+int x;cin>>x;
+ans.clear();
+f(x);
+cout>t;
+while(t--) solve();
+return 0;
+}
+
+```
 - 思路2- x=1001011...0 (2进制)
   - 最高1的二进制位是bm,考虑在1.2.3.4...（bm-1）这样子的数组上插数来影响数量，
   - 只需要如果i位是1，则在i之前补一个bm即可
 - 代码2
 
 ```C++
-		  #include
-		  using namespace std;
-		  #define int long long
-		  #define endl '\n'
-		  #define pb push_back
-		  void solve(){
-		      int x;cin>>x;
-		  	int bm;
-		  	for(bm=62;bm>=0;bm--)
-		  		if(x>>bm&1) break;
-		  	vector ans;
-		  	for(int i=0;i>i&1) ans.pb(bm);
-		  		ans.pb(i);
-		  	}
-		  	cout>t;
-		      while(t--) solve();
-		      return 0;
-		  }
-		  
-		  ```
+#include
+using namespace std;
+#define int long long
+#define endl '\n'
+#define pb push_back
+void solve(){
+int x;cin>>x;
+int bm;
+for(bm=62;bm>=0;bm--)
+if(x>>bm&1) break;
+vector ans;
+for(int i=0;i>i&1) ans.pb(bm);
+ans.pb(i);
+}
+cout>t;
+while(t--) solve();
+return 0;
+}
+
+```
+```
+```

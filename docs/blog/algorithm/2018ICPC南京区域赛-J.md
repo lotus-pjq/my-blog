@@ -9,64 +9,65 @@ outline: deep
 
 - 题目- 
 - 思路
-- 
 - 代码
-- ```C++
-	  #include
-	  using namespace std;
-	  #define int long long
-	  #define endl '\n'
-	  const int N=1e6+5;
-	  int pnum;
-	  vector pri;
-	  vector mpf,phi;//min prime factor
-	  void get_prime(int n){
-	    mpf.resize(n+1,0);
-	    phi.resize(n+1,0);phi[1]=1;
-	    for(int i=2;in) break;
-	        mpf[i*p]=p;
-	        if(mpf[i]==p){phi[p*i]=phi[i]*p;break;}
-	        else phi[i*p]=phi[i]*(p-1);
-	      }
-	    }
-	  }
-	  int n,a[N];
-	  vector pos[N];
-	  set occ;
-	  signed main(){
-	  	ios::sync_with_stdio(false);
-	  	cin.tie(nullptr);
-	  	get_prime(N);
-	  	cin>>n;
-	  	for(int i=1;i>a[i];
-	  	for(int i=1,x,p;i1){
-	  			p=mpf[x];
-	  			pos[p].push_back(i);
-	  			occ.insert(p);
-	  			while(x%p==0) x/=p;
-	  		}
-	  	}
-	  	int tot=(n+1)*n/2;
-	  	int ans=0;
-	  	for(int prim:occ){
-	  		int cnt=0;
-	  		int last=0,l,r,len;
-	  		for(int p:pos[prim]){
-	  			l=last+1,r=p-1;
-	  			if(l<=r){
-	  				len=r-l+1;
-	  				cnt+=len*(len+1)/2;
-	  			}
-	  			last=p;
-	  		}
-	  		if(last<n){
-	  			l=last+1,r=n;
-	  			len=r-l+1;
-	  			cnt+=len*(len+1)/2;
-	  		}
-	  		ans+=tot-cnt;
-	  	}
-	  	cout<<ans<<endl;
-	  	return 0;
-	  }
-	  ```
+```C++
+#include
+using namespace std;
+#define int long long
+#define endl '\n'
+const int N=1e6+5;
+int pnum;
+vector pri;
+vector mpf,phi;//min prime factor
+void get_prime(int n){
+mpf.resize(n+1,0);
+phi.resize(n+1,0);phi[1]=1;
+for(int i=2;in) break;
+mpf[i*p]=p;
+if(mpf[i]==p){phi[p*i]=phi[i]*p;break;}
+else phi[i*p]=phi[i]*(p-1);
+}
+}
+}
+int n,a[N];
+vector pos[N];
+set occ;
+signed main(){
+ios::sync_with_stdio(false);
+cin.tie(nullptr);
+get_prime(N);
+cin>>n;
+for(int i=1;i>a[i];
+for(int i=1,x,p;i1){
+p=mpf[x];
+pos[p].push_back(i);
+occ.insert(p);
+while(x%p==0) x/=p;
+}
+}
+int tot=(n+1)*n/2;
+int ans=0;
+for(int prim:occ){
+int cnt=0;
+int last=0,l,r,len;
+for(int p:pos[prim]){
+l=last+1,r=p-1;
+if(l<=r){
+len=r-l+1;
+cnt+=len*(len+1)/2;
+}
+last=p;
+}
+if(last<n){
+l=last+1,r=n;
+len=r-l+1;
+cnt+=len*(len+1)/2;
+}
+ans+=tot-cnt;
+}
+cout<<ans<<endl;
+return 0;
+}
+```
+```
+```

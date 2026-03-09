@@ -8,9 +8,11 @@ outline: deep
 ---
 
 ## code
-- ```C++
-	  int removebit(int n,int bit){
-	  	int tail=n&((1ll>bit+1)<<bit;
-	  	return tail|head;
-	  }
-	  ```
+```C++
+int removebit(int n,int bit){
+int tail=n&((1ll>bit+1)<<bit;
+return tail|head;
+}
+```
+```
+```

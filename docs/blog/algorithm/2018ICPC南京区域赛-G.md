@@ -8,7 +8,6 @@ outline: deep
 ---
 
 - 题目- 
-- 
 - 思路
 - 和25CCPC网络赛的A题，那道矩形网格每个点作为顶点的正方形计数的原理几乎一模一样。
 - 框定大小后能贡献多少个刚刚好卡在里面的。
@@ -17,30 +16,32 @@ outline: deep
 - 代码
 
 ```C++
-	  #include
-	  using namespace std;
-	  #define int long long
-	  #define endl '\n'
-	  const int mod=1e9+7;
-	  int ksm(int a,int b,int c=mod){
-	  	int ans=1;
-	  	while(b){
-	  	   if(b&1) ans=(ans*a)%c;
-	  	   b>>=1,a=(a*a)%c;
-	  	}return ans;
-	  }
-	  const int inv24=ksm(24,mod-2);
-	  void mul(int &x,int y){x=x*y%mod;}
-	  void solve(){
-	  	int n;cin>>n;
-	  	int ans=1;
-	  	mul(ans,n+3);
-	  	mul(ans,n+2);
-	  	mul(ans,n+1);
-	  	mul(ans,n);
-	  	mul(ans,inv24);
-	  	cout>t;
-	  	while(t--) solve();
-	  	return 0;
-	  }
-	  ```
+#include
+using namespace std;
+#define int long long
+#define endl '\n'
+const int mod=1e9+7;
+int ksm(int a,int b,int c=mod){
+  int ans=1;
+  while(b){
+     if(b&1) ans=(ans*a)%c;
+     b>>=1,a=(a*a)%c;
+  }return ans;
+}
+const int inv24=ksm(24,mod-2);
+void mul(int &x,int y){x=x*y%mod;}
+void solve(){
+  int n;cin>>n;
+  int ans=1;
+  mul(ans,n+3);
+  mul(ans,n+2);
+  mul(ans,n+1);
+  mul(ans,n);
+  mul(ans,inv24);
+  cout>t;
+  while(t--) solve();
+  return 0;
+}
+```
+```
+```

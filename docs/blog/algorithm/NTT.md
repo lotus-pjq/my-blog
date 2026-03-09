@@ -10,50 +10,48 @@ tags:
 outline: deep
 ---
 
-tags:: #算法/NTT #数学/多项式 #数论/原根 #模板
-
 ## 模板1（董晓）- ```C++
-	  #include
-	  using namespace std;
-	  #define int long long
-	  #define endl '\n'
-	  #define INF 0x3f3f3f3f3f3f3f3f
-	  const int mod=1e9+7;
-	  //NTT 快速数论变换
-	  /*题目描述：给定一个n次多项式F(x)，和一个m次多项式G(x)。
-	  请求出F(x)和G(x)的乘积。
-	  输入格式：第一行两个整数n,m。
-	  接下来一行n+1个数字，从低到高表示F(x)的系数。
-	  接下来一行m+1个数字，从低到高表示G(x)的系数。
-	  输出格式：一行n+m+1个数字，从低到高表示F(x)⋅G(x)的系数。*/
-	  const int N=4e6+5;
-	  const int g=3,P=998244353;
-	  int n,m,R[N],gi,ni;
-	  int A[N],B[N];
-	  int ksm(int a,int b){
-	      int ans=1;
-	      while(b){
-	         if(b&1) ans=(ans*a)%P;
-	         b>>=1;
-	         a=(a*a)%P;
-	      }
-	      return ans;
-	  }
-	  void NTT(int A[],int n,int op){
-	      for(int i=0;i>n>>m;
-	      for(int i=0;i>A[i];
-	      for(int i=0;i>B[i];
-	      for(m=n+m,n=1; n<=m; n<<=1);
-	      gi=ksm(g,P-2); ni=ksm(n,P-2);
-	      NTT(A,n,1);
-	      NTT(B,n,1);
-	      for(int i=0;i<n;++i)A[i]=A[i]*B[i]%P;
-	      NTT(A,n,-1);
-	      for(int i=0;i<=m;++i) cout<<A[i]*ni%P<<" ";
-	  }
-	  ```
-- ## `多项式乘法逆元模板`
-- ## NTT原根表
+#include
+using namespace std;
+#define int long long
+#define endl '\n'
+#define INF 0x3f3f3f3f3f3f3f3f
+const int mod=1e9+7;
+//NTT 快速数论变换
+/*题目描述：给定一个n次多项式F(x)，和一个m次多项式G(x)。
+请求出F(x)和G(x)的乘积。
+输入格式：第一行两个整数n,m。
+接下来一行n+1个数字，从低到高表示F(x)的系数。
+接下来一行m+1个数字，从低到高表示G(x)的系数。
+输出格式：一行n+m+1个数字，从低到高表示F(x)⋅G(x)的系数。*/
+const int N=4e6+5;
+const int g=3,P=998244353;
+int n,m,R[N],gi,ni;
+int A[N],B[N];
+int ksm(int a,int b){
+int ans=1;
+while(b){
+if(b&1) ans=(ans*a)%P;
+b>>=1;
+a=(a*a)%P;
+}
+return ans;
+}
+void NTT(int A[],int n,int op){
+for(int i=0;i>n>>m;
+for(int i=0;i>A[i];
+for(int i=0;i>B[i];
+for(m=n+m,n=1; n<=m; n<<=1);
+gi=ksm(g,P-2); ni=ksm(n,P-2);
+NTT(A,n,1);
+NTT(B,n,1);
+for(int i=0;i<n;++i)A[i]=A[i]*B[i]%P;
+NTT(A,n,-1);
+for(int i=0;i<=m;++i) cout<<A[i]*ni%P<<" ";
+}
+```
+## `多项式乘法逆元模板`
+## NTT原根表
 - 如果 $r \cdot 2^k + 1$ 是个素数，那么在$\bmod r \cdot 2^k + 1$意义下，可以处理 $2^k$ 以内规模的数据，
 - $2281701377=17\cdot 2^{27}+1$ 是一个挺好的数，平方刚好不会爆 `long long`
 - $1004535809=479\cdot 2^{21}+1$ 加起来刚好不会爆 `int` 也不错
@@ -101,3 +99,4 @@ tags:: #算法/NTT #数学/多项式 #数论/原根 #模板
 	  | 180143985094819841 | 5 | 55 | 6 |
 	  | 1945555039024054273 | 27 | 56 | 5 |
 	  | 4179340454199820289 | 29 | 57 | 3 |
+```
