@@ -1,0 +1,119 @@
+---
+title: 牛客多校10
+date: 2026-03-09
+category: 题解
+tags:
+  - 算法
+description: 牛客多校10相关的算法笔记和代码模板
+---
+
+## E #DP
+	- 题目:
+		- ![image.png](../assets/image_1755170679553_0.png){:height 596, :width 825}
+	- ### 思路：
+		- 很显然，如果当m=1时，将所有数加到max_element即可
+		- 子问题
+		  >将任意区间[l,r]的数字加1的代价是1，将一个数组a[n]操作成全部位相同数字的最小代价是多少。( O(N) )
+		- ==O(n)的操作！！！==
+			- ## 1. 关键观察
+			- 一次区间加 1 等价于 **差分数组** 的  
+			  $d[l]+=1 ,  d[r+1]-=1$，
+			- ## 2. 算法
+				- 1. 计算 **差分数组** $d[i]=a[i]-a[i-1]$（2 ≤ i ≤ n）。
+				- 2. 答案 $$ans = \sum_{i=2}^{n} \max(0, d_i)$$
+				     （负数差分不需要补，因为只能“加”不能“减”）
+			- ## 3. 正确性证明
+				- 每次操作把某段差分抵消 1。
+				- 只能 **减少正差分**，不能减少负差分（只能加）。
+				- 因此每个正差分 **必须被覆盖 `d[i]` 次**，故总代价为 **所有正差分绝对值之和**。
+			- ## 4. 复杂度
+				- 差分数组：O(n) 扫描一次。
+				- 求和：O(n)。
+				- **总复杂度：O(n)**。
+			- ## ✅ 一句话总结  
+			  差分数组 $d[i]=a[i]-a[i-1]$，答案即为 **所有正差分之和**，时间复杂度 **O(n)**。
+			  ```C++
+			  if(m==1){
+			  		int mx=maele(a);
+			  		int ans=mx-a[0];
+			  		for(int i=1;i<n;i++)
+			  			if(a[i-1]>a[i]) ans+=a[i-1]-a[i];
+			  		cout<<ans<<endl;return;
+			  	}
+			  ```
+	- ### 观察样例：
+	  从第二组样例得到启发，==较大值可能比max_element大==
+	  ![image.png](../assets/image_1755170731947_0.png)
+	- ![image.png](../assets/image_1755171979209_0.png){:height 357, :width 757}
+	- 枚举较大值和较小值：
+	  $for(int y=mx;y<=mx+100;y++)${//枚举较大值
+	      $for(int x=mn;x<=mx;x++)${//枚举较小值
+	- dp[i][0/1]:处理完前i位并且第i位为(0:较小值/1:较大值)的费用
+	  dp[]初始化为INF:  $vector<vector<int>> dp(n,vector<int>(2,INF));$
+	- dp[0][0/1]的赋值： $if(x>=a[0]) dp[0][0]=x-a[0];$ 
+	                                  $if(y>=a[0]) dp[0][1]=y-a[0];$
+	- 遍历当前位置取较大值还是较小值的情况 $p$，遍历前一位取最大值还是较小值的情况 $q$,
+	- 状态转移：  $$dp[i][p]=min(dp[i][p],dp[i-1][q]+max(xdelt-ydelt,0ll));$$
+	- ```C++
+	  #include<bits/stdc++.h>
+	  using namespace std;
+	  #define int long long
+	  #define endl '\n'
+	  #define INF 0x3f3f3f3f3f3f3f3f
+	  #define maele(a) *max_element(a.begin(),a.end())
+	  #define mnele(a) *min_element(a.begin(),a.end())
+	  const int N=2e5+5;
+	  //dp[i][0/1]:处理完前i位并且第i位为(0:较小值/1:较大值)的费用
+	  void solve(){
+	  	int n,m;cin>>n>>m;
+	  	vector<int> a(n);
+	  	for(int i=0;i<n;i++) cin>>a[i];
+	  	if(m==1){
+	  		int mx=maele(a);
+	  		int ans=mx-a[0];
+	  		for(int i=1;i<n;i++)
+	  			if(a[i-1]>a[i]) ans+=a[i-1]-a[i];
+	  		cout<<ans<<endl;return;
+	  	}
+	  	int mx=maele(a),mn=mnele(a),ans=INF;
+	  	for(int y=mx;y<=mx+100;y++){//枚举较大值
+	  		for(int x=mn;x<=mx;x++){//枚举较小值
+	  			vector<vector<int>> dp(n,vector<int>(2,INF));
+	  			if(x>=a[0]) dp[0][0]=x-a[0];
+	  			if(y>=a[0]) dp[0][1]=y-a[0];
+	  			for(int i=1;i<n;i++){
+	  				for(int p=0;p<2;p++){
+	  					int xdelt;
+	  					if(p==0){
+	  						if(x<a[i]) continue;
+	  						xdelt=x-a[i];
+	  					} 
+	  					else xdelt=y-a[i];
+	  
+	  					for(int q=0;q<2;q++){
+	  						if(dp[i-1][q]==INF) continue;
+	  						int ydelt;
+	  						if(q==0){
+	  							if(x<a[i-1]) continue;
+	  							ydelt=x-a[i-1];
+	  						} 
+	  						else ydelt=y-a[i-1];
+	  
+	  						dp[i][p]=min(dp[i][p],dp[i-1][q]+max(xdelt-ydelt,0ll));
+	  					}
+	  				}
+	  			}
+	  			ans=min(ans,min(dp[n-1][0],dp[n-1][1]));
+	  		}
+	  	}
+	  	cout<<ans<<endl;
+	  }
+	  signed main(){
+	      ios::sync_with_stdio(false);
+	      cin.tie(0);
+	      int T;cin>>T;
+	      while(T--) solve();
+	      return 0;
+	  }
+	  ```
+-

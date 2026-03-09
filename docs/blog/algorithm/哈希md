@@ -1,0 +1,63 @@
+---
+title: 哈希
+date: 2026-03-09
+category: 字符串
+tags:
+  - 算法
+description: 哈希相关的算法笔记和代码模板
+---
+
+## 双哈希
+	- ```C++
+	  #include<bits/stdc++.h>
+	  using namespace std;
+	  #define int long long
+	  const int P1=131,M1=1e9+7;
+	  const int P2=13331,M2=998244353;
+	  pair<int,int> cal_hash(const string& s){
+	  	int h1=0,h2=0;
+	  	for(char c:s){
+	  		h1=(h1*P1+(c-'a'+1))%M1;
+	  		h2=(h2*P2+(c-'a'+1))%M2;
+	  	}
+	  	return {h1,h2};
+	  }
+	  signed main(){
+	  	ios::sync_with_stdio(false);
+	  	cin.tie(nullptr);
+	  	int n;cin>>n;
+	  	set<pair<int,int>> st;
+	  	for(int i=0;i<n;i++){
+	  		string s;cin>>s;
+	  		st.insert(cal_hash(s));
+	  	}
+	  	cout<<st.size()<<endl;
+	  	return 0;
+	  }
+	  ```
+- ## 自然溢出的单哈希
+	- ```C++
+	  using ull=unsigned long long;
+	  static const ull P=131;
+	  struct Nathash{
+	  	vector<ull> h,p;
+	   //h：前缀哈希数组，h[i] 表示字符串前 i 个字符的哈希值。
+	  //p：幂数组，p[i] 表示 p 的 i 次方。
+	  	Nathash(const string& s){
+	  		int n=s.length();
+	  		p.resize(n+1);
+	  		h.resize(n+1);
+	  		p[0]=1, h[0]=0;
+	  		for(int i=0;i<n;++i){
+	  			p[i+1]=p[i]*P;
+	  			h[i+1]=h[i]*P+(s[i]-'a'+1);
+	  		}
+	  	}
+	  	ull get(int l,int r){
+	  		int len=r-l+1;
+	  		return h[r+1]-h[l]*p[len];
+	  	}
+	  }
+	  ```
+-
+-

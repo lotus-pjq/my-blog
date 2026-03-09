@@ -1,0 +1,56 @@
+---
+title: 小苯的xor图(牛客周赛105)
+date: 2026-03-09
+category: 题解
+tags:
+  - 算法
+description: 小苯的xor图(牛客周赛105)相关的算法笔记和代码模板
+---
+
+- 题目：
+	- ![image.png](../assets/image_1755432610312_0.png){:height 323, :width 562}
+- Code
+  ```C++
+  #include<bits/stdc++.h>
+  using namespace std;
+  #define int long long
+  #define endl '\n'
+  #define rep(i,j,k) for (int i=j;i<=k;++i)
+  const int mod=998244353;
+  const int N=2e5+5;
+  #define pb push_back
+  vector<int> g[N];
+  int n,m;
+  int a[N],dp[64][2];
+  signed main(){
+  	ios::sync_with_stdio(false);
+  	cin.tie(nullptr);
+  	cin>>n>>m;
+  	rep(i,1,n) cin>>a[i];
+  	int x,y;
+  	rep(i,1,m){
+  		cin>>x>>y;
+  		g[x].pb(y);g[y].pb(x);
+  	}
+  	int ans=0;
+  	for(int u=1;u<=n;u++){
+  		memset(dp,0,sizeof(dp));
+  		int cur=0;
+  		for(auto v:g[u]){
+  			int tmp=a[v];
+  			for(int p=0;p<64;p++){
+  				if(tmp>>p&1) cur=(cur+(1<<p)*dp[p][0])%mod;
+  				else cur=(cur+(1<<p)*dp[p][1])%mod;
+  			}
+  			tmp=a[v]^a[u];
+  			for(int p=0;p<64;p++){
+  				if(tmp>>p&1) dp[p][1]++;
+  				else dp[p][0]++;
+  			}
+  		}
+  		ans=(ans+cur)%mod;
+  	}
+  	cout<<ans;
+  	return 0;
+  }
+  ```

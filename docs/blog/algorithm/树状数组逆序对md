@@ -1,0 +1,98 @@
+---
+title: 树状数组+逆序对
+date: 2026-03-09
+category: 数据结构
+tags:
+  - 算法
+description: 树状数组+逆序对相关的算法笔记和代码模板
+---
+
+### vector下标从1开始:
+	- ```C++
+	  struct Fenwick{
+	      int n;
+	  	vector<int> a; //下标从1开始
+	  	#define lowbit(x) ((x)&-(x))
+	      Fenwick(int n_=0){init(n_);}
+	      void init(int n_){n=n_;a.assign(n+1,0);}
+	      void add(int x,int val){for(;x<=n;x+=lowbit(x)) a[x]+=val;}
+	      int sum(int x){
+	  		int ans=0;
+	          for(;x>=1;x-=lowbit(x)) ans+=a[x];
+	          return ans;
+	  	}
+	      int rangeSum(int l,int r){return sum(r)-sum(l-1);}
+	  //select(k):返回最大的下标x,使得前缀和a[1]+...+a[x]≤k。(下标从1开始,找不到时返回0)
+	      int select(int k){
+	          int x=0;//__lg(n):返回n最高有效位的位置,即floor(log2(n))
+	          for(int i=1<<__lg(n);i;i>>=1)
+	              if(x+i<=n&&a[x+i]<=k){k-=a[x+i];x+=i;}
+	          return x;
+	      }
+	  };
+	  ```
+	- ### 逆序对
+		- ```C++
+		  // 计算数组a[1..n]的逆序对个数
+		  int Reverse_order_pair(const vector<int>& a) {
+		      int n = a.size()-1; //假设a[0]未用
+		      vector<int> b(a.begin() + 1, a.end());
+		      vector<int> tmp=b;//离散化
+		      sort(tmp.begin(),tmp.end());
+		      tmp.erase(unique(tmp.begin(),tmp.end()),tmp.end());
+		      int m=tmp.size();
+		      Fenwick bit(m);
+		      long long res=0;
+		      for (int i=n-1;i>=0;--i) {
+		          int id=lower_bound(tmp.begin(),tmp.end(),b[i])-tmp.begin()+1;
+		          res+=bit.sum(id-1);
+		          bit.add(id,1);
+		      }
+		      return res;
+		  }
+		  ```
+- ### vector下标从0开始
+	- ```C++
+	  struct Fenwick{
+	      int n;
+	      vector<int> a;          // 下标 0..n-1 对应原数组 1..n
+	  	#define lowbit(x) ((x)&-(x))
+	      Fenwick(int n_=0){init(n_);}
+	      void init(int n_){n=n_;a.assign(n,0);}
+	      void add(int x,int v){for(int i=x+1;i<=n;i+=i&-i) a[i-1]+=v;}
+	      int sum(int x){
+	          int ans=0;
+	          for (int i=x+1;i>0;i-=i&-i)
+	              ans+=a[i-1];
+	          return ans;
+	      }
+	      int rangeSum(int l,int r){return sum(r)-sum(l-1);}
+	  //select(k):返回最大的下标x,使得前缀和a[1]+...+a[x]≤k。(下标从0开始,找不到时返回0)
+	      int select(int k){
+	          int x=0;
+	          for(int i=1<<__lg(n);i;i>>=1)
+	              if(x+i<=n&&a[x+i-1]<=k){k-=a[x+i-1];x+=i;}
+	          return x-1;   
+	      }
+	  };
+	  ```
+	- ### 逆序对
+		- ```C++
+		  // 返回 a[0..n-1] 的逆序对个数
+		  long long Reverse_order_pair(const vector<int>& a) {
+		      int n=a.size();
+		      if(n==0) return 0;
+		      vector<int> tmp = a;// 离散化
+		      sort(tmp.begin(), tmp.end());
+		      tmp.erase(unique(tmp.begin(), tmp.end()), tmp.end());
+		      int m = tmp.size();
+		      Fenwick bit(m); 
+		      long long res=0;
+		      for (int i=n-1;i>=0;--i){
+		          int id=lower_bound(tmp.begin(),tmp.end(),a[i])-tmp.begin()+1; 
+		          res+=bit.sum(id - 1);  
+		          bit.add(id, 1); 
+		      }
+		      return res;
+		  }
+		  ```

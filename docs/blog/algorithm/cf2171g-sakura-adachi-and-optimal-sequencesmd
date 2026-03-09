@@ -1,0 +1,153 @@
+---
+title: CF2171G Sakura Adachi and Optimal Sequences
+date: 2026-03-09
+category: 其他
+tags:
+  - 算法
+description: CF2171G Sakura Adachi and Optimal Sequences相关的算法笔记和代码模板
+---
+
+## 题面
+	- # CF2171G Sakura Adachi and Optimal Sequences
+	- ## 题目描述
+		- 你有两个长度为 $n$ 的数组 $a$ 和 $b$，满足 $1\leq a_i\leq b_i$。
+		  每次操作，你可以：
+		- 选择一个下标 $i$（$1 \leq i \leq n$），令 $a_i := a_i + 1$，或者
+		- 使 $a$ 的所有元素都乘以 $2$。
+		  记 $x$ 为将 $a$ 变为 $b$ 所需的最少操作次数。长度为 $n$ 的两个数组 $a$ 和 $b$，当且仅当对于所有 $1 \leq i \leq n$ 都有 $a_i = b_i$ 时，认为 $a = b$。
+		  求 $x$ 的值。此外，计算用恰好 $x$ 次操作将 $a$ 变为 $b$ 的不同操作序列数量。若对于任意 $1 \leq j \leq x$，两条操作序列第 $j$ 步所选的操作类型或下标不同，则认为这两条操作序列不同。
+		  由于方案数可能很大，请将答案对 $10^6+3$ 取模输出。注意 $10^6+3$ 是一个质数。
+	- ## 输入格式
+		- 第一行包含一个整数 $t$（$1\leq t\leq 10^4$），表示测试用例数量。
+		  每个测试用例的第一行包含一个整数 $n$（$2 \leq n \leq 2 \cdot 10^5$）。
+		  第二行包含 $n$ 个整数 $a_1, a_2, \dots, a_n$（$1\leq a_i\leq 10^6$）。
+		  第三行包含 $n$ 个整数 $b_1, b_2, \dots, b_n$（$a_i \leq b_i \leq 10^6$）。
+		  保证所有测试用例中 $n$ 的总和不超过 $2 \cdot 10^5$。
+	- ## 输出格式
+		- 对于每个测试用例，输出两个整数 $x$，以及用恰好 $x$ 次操作将 $a$ 变为 $b$ 的不同操作序列数量，对 $10^6+3$ 取模。$x$ 的值应按通常方式输出，不需要取模。
+	- ### 输入
+	  ```
+	  8
+	  6
+	  1 3 6 4 3 2
+	  3 7 10 4 4 8
+	  2
+	  1 1
+	  4 3
+	  5
+	  2 3 2 5 1
+	  18 13 10 30 7
+	  5
+	  5 4 3 6 2
+	  100 125 231 113 107
+	  4
+	  2 2 2 2
+	  2 2 2 2
+	  4
+	  1 1 1 1
+	  2 2 2 2
+	  7
+	  1 1 1 1 1 1 200000
+	  200000 200000 200000 200000 200000 200000 200000
+	  3
+	  542264 174876 441510
+	  641112 325241 995342
+	  ```
+	- ### 输出 
+	  ```
+	  17 827116
+	  3 1
+	  12 288
+	  35 567812
+	  0 1
+	  1 1
+	  1199994 0
+	  803045 366998
+	  ```
+	- ## 说明/提示
+	  
+	  在第二个样例中，只需三步即可将 $a$ 变为 $b$，并且只有一种做法，具体为：
+	- 对 $a_1$ 加 $1$，得到 $a = [2, 1]$。然后将所有元素乘 $2$，得到 $a = [4, 2]$。然后对 $a_2$ 加 $1$，得到 $a = [4, 3]$。此时 $a = b$，达成目标。
+	  可以证明，无法通过少于三次操作将 $a$ 变为 $b$。
+- ## 题解
+	- #### A. 贪心策略确定  $K$  (乘法次数)
+		- 题目要求最小化操作总数 $x$。由于“全局乘 2”能让数值呈指数级增长，这是收益最高的操作。为了最小化加法次数，我们应该尽可能多地使用乘法。
+		  但是，所有数字必须同时乘 2。因此，乘法次数 $K$ 受限于所有数对 $(a_i, b_i)$ 中最“紧”的那一对。
+		  代码中计算 $K$ 的逻辑如下：$$K = \min_{1 \le i \le n} \lfloor \log_2(\frac{b_i}{a_i}) \rfloor$$
+		  这保证了对于任意 $i$，都有 $a_i \cdot 2^K \le b_i$，即乘法不会让任何 $a_i$ 超过 $b_i$。
+	- #### B. 操作分解 (位运算视角)
+		- 确定 $K$ 后，对于每个 $i$，我们需要通过加法填补 $a_i \cdot 2^K$ 和 $b_i$ 之间的差值。
+		  我们可以将操作分为 $K+1$ 个阶段（Stage）：
+		- **StageK (初始阶段)**：在所有乘法之前进行的加法。这里的 1 次加法最终会贡献 $1 \times 2^K$ 的数值。
+		- **Stage(K-1)~Stage0(中间阶段)**：在第 $j$ 次和第 $j+1$ 次乘法之间进行的加法。这里的 1 次加法最终贡献 $2^j$ 的数值。
+		  对于每个 $i$，我们需要填补的数值差为 $\Delta_i = b_i - a_i \cdot 2^K$。
+		  这个差值可以拆分为两部分：
+			- **高位部分 (StageK)**：$\text{cnt}[i]=(b_i \gg K)-a_i$。这是必须在最开始加上的数值，因为后面的阶段无法凑出 $2^K$ 的倍数。
+			- **低位部分 (Stage(K-1)~Stage0)**：即 $b_i$ 的二进制低 $K$ 位。如果在第 $j$ 位是 1，说明需要在还剩 $j$ 次乘法时进行一次加法。
+	- #### C. 组合计数 (排列方案)
+		- 操作序列的结构是固定的：
+		  $$[\text{Stage } K \text{ Ops}] \to [\text{Mul}] \to [\text{Stage } K-1 \text{ Ops}] \to \dots \to [\text{Mul}] \to [\text{Stage } 0 \text{ Ops}]$$
+		  不同阶段的操作被“乘法”隔开，互不干扰。总方案数等于各阶段内部排列数的乘积。
+		- **Stage K 的方案数**：
+			- 这是一个**多重集全排列**问题。
+			- 总操作数 $S = \sum \text{cnt}[i]$，其中第 $i$ 个数需要加 $\text{cnt}[i]$ 次。
+			- 方案数为：$\frac{(\sum \text{cnt}[i])!}{\prod (\text{cnt}[i]!)}$。
+		- **Stage j (0 <= j < K) 的方案数**：
+			- 对于低位，每个数 $a_i$ 在第 $j$ 位要么加 0 次，要么加 1 次（二进制性质）。
+			- 设在第 $j$ 位需要加 1 的数的个数为 $c[j]$。
+			- 这 $c[j]$ 个操作都是对不同下标的数进行的，因此是**互不相同**的操作。
+			- 方案数为：$c[j]!$。
+- ## 代码
+	- ```C++
+	  #include<bits/stdc++.h>
+	  using namespace std;
+	  #define int long long
+	  #define endl '\n'
+	  const int mod=1e6+3;
+	  const int N=2e5+5;
+	  const int M=1e6+5;
+	  int a[N],b[N],c[N],cnt[N];
+	  int cnt1[62];
+	  int inv[M],tt[M],intt[M];
+	  void init_inff(){
+	  	tt[0]=intt[0]=inv[1]=1;
+	  	for(int i=2;i<M;i++) inv[i]=(mod-mod/i)*inv[mod%i]%mod;
+	  	for(int i=1;i<mod;++i) tt[i]=tt[i-1]*i%mod,intt[i]=intt[i-1]*inv[i]%mod;
+	  }
+	  void solve(){
+	  	int n;cin>>n;
+	  	for(int i=1;i<=n;i++) cin>>a[i];
+	  	for(int i=1;i<=n;i++) cin>>b[i];
+	  	memset(cnt1,0,sizeof(cnt1));
+	  	int k=62;
+	  	for(int i=1;i<=n;i++) k=min(k,(int)log2(b[i]/a[i]));	
+	  	for(int i=1;i<=n;i++){
+	  		cnt[i]=(b[i]>>k)-a[i];//a[i]加几个(1<<k)
+	  		b[i]&=(1<<(k+1))-1;//接下来只需要看b[i]的后k位
+	  	}
+	  	for(int j=0;j<k;j++)
+	  		for(int i=1;i<=n;i++)
+	  			if(b[i]>>j&1) cnt1[j]++;
+	  	int ans1=k,ans2=1;
+	  	for(int j=0;j<k;j++) ans1+=cnt1[j];
+	  	for(int i=1;i<=n;i++) ans1+=cnt[i];
+	  	cout<<ans1<<" ";
+	  	//高位方案数: (∑cnt[i])! / ∏(cnt[i]!)
+	  	int sum=0;
+	  	for(int i=1;i<=n;i++) sum+=cnt[i];
+	  	if(sum>=mod){cout<<0<<endl;return;}
+	  	ans2=(ans2*tt[sum])%mod;
+	  	for(int i=1;i<=n;i++) ans2=ans2*intt[cnt[i]]%mod;
+	  	//低位方案数: ∏cnt1[j]!
+	  	for(int j=0;j<k;j++) ans2=ans2*tt[cnt1[j]]%mod;
+	  	cout<<ans2<<endl;
+	  }
+	  signed main(){
+	  	ios::sync_with_stdio(false);
+	  	cin.tie(nullptr);
+	  	init_inff();
+	  	int t;cin>>t;
+	  	while(t--) solve();
+	  	return 0;
+	  }
+	  ```

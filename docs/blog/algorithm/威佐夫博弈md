@@ -1,0 +1,36 @@
+---
+title: 威佐夫博弈
+date: 2026-03-09
+category: 数学
+tags:
+  - 算法
+description: 威佐夫博弈相关的算法笔记和代码模板
+---
+
+### 威佐夫博弈（Wythoff's game）：
+>有两堆各若干个物品，两个人轮流从任一堆取至少一个或同时从两堆中取同样多的物品，规定每次至少取一个，多者不限，最后取光者得胜。
+- ![b6512b5734b662e32ace6eeb3f75b1cc.png](../assets/b6512b5734b662e32ace6eeb3f75b1cc_1754723624507_0.png){:height 331, :width 546}
+- ![89ccf59b875164a42df12b10b99c2494.png](../assets/89ccf59b875164a42df12b10b99c2494_1754723652729_0.png){:height 240, :width 944}
+- “组成部分的长度”实际上是斐波那契数列，可以方便地用数学归纳法证明。
+- ![a6b90eef6e6b5d069a27d5b339b0b223.png](../assets/a6b90eef6e6b5d069a27d5b339b0b223_1754723641849_0.png){:height 819, :width 689}
+-
+- 因为涉及到黄金分割率，会**卡精度**！！！
+- ==1.开long double==
+- ==2.把sqrt换成sqrtl==
+- ```C++
+  #include<bits/stdc++.h>
+  using namespace std;
+  #define double long double
+  #define int long long
+  int a,b;
+  signed main(){
+      while(scanf(" %lld %lld",&a,&b)!=EOF){
+          if(a>b) swap(a,b);
+          int d=((sqrtl(5.0)+1.0)/2.0*(b-a));
+          if(a==d) printf("0\n");
+          else printf("1\n");
+      }
+      return 0;
+  }
+  ```
+-

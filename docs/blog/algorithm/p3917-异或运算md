@@ -1,0 +1,77 @@
+---
+title: P3917 异或运算
+date: 2026-03-09
+category: 题解
+tags:
+  - 算法
+description: P3917 异或运算相关的算法笔记和代码模板
+---
+
+- 题目：
+	- ### P3917 异或序列
+	- #### 题目描述
+	  给出序列 $A_1,A_2,\cdots,A_N$，求
+	  $$\sum_{1\le i\le j\le N} A_i\oplus A_{i+1}\oplus\cdots\oplus A_j$$
+	  的值。其中，$\bigoplus$ 表示按位异或。
+	- ## 输入格式
+	  第一行，一个整数 $N$。
+	  第二行，$N$个整数 $A_1,A_2,\cdots,A_N$。
+	- #### 输出格式
+	  一个数，为表达式的值。
+	- #### 输入输出样例
+	- ##### 输入
+	  ```
+	  2
+	  1 2
+	  ```
+	- ##### 输出 
+	  ```
+	  6
+	  ```
+	- ## 说明/提示
+	- 对于 $60\%$ 的数据，$1 \le N \le 10^3$；
+	- 对于 $100\%$ 的数据，$1 \le N \le 10^5$，$0 \le A_i \le 10^9$。
+- 分析：
+	- ### 按二进制每一位分开算！
+	- 考虑第p位的贡献：
+		- 状态设计：dp[i][1/0]:a[i]一定要的时候某一二进制位能贡献的值，
+		  dp[i][1]表示前面选有奇数个1的方案数，dp[i][0]表示前面选有偶数个1的方案数
+		- 状态转移：
+			- 如果a[i]第p位是1：(a[i]>>p)&1
+			  $dp[i][1]=dp[i-1][0]+1;$自己单独要有一种情况，从前面偶数个1转移过来的有dp[i-1][0]种
+			  $dp[i][0]=dp[i-1][1];$从前面奇数个1转移过来
+			- 如果a[i]第p位是0：
+			  $dp[i][1]=dp[i-1][1];$从前面奇数个1的情况转移
+			  $dp[i][0]=dp[i-1][0]+1;$自己单独一个选也是偶数个1（0个）的情况，再从前面偶数个的情况转移过来
+	- ```C++
+	  #include<bits/stdc++.h>
+	  using namespace std;
+	  #define int long long
+	  #define endl '\n'
+	  #define rep(i,j,k) for (int i=j;i<=k;++i)
+	  const int N=2e5+5;
+	  int a[N],dp[N][2];//dp[i][1/0]:a[i]一定要的时候某一二进制位能贡献的值
+	  signed main(){
+	  	ios::sync_with_stdio(false);
+	  	cin.tie(nullptr);
+	  	int n,ans=0;cin>>n;
+	  	rep(i,1,n) cin>>a[i];
+	  	for(int p=0;p<=30;p++){
+	  		for(int i=1;i<=n;i++){
+	  			if((a[i]>>p)&1){
+	  				dp[i][1]=dp[i-1][0]+1;
+	  				dp[i][0]=dp[i-1][1];
+	  			}else{
+	  				dp[i][1]=dp[i-1][1];
+	  				dp[i][0]=dp[i-1][0]+1;
+	  			}
+	  		}
+	  		for(int i=1;i<=n;i++) ans+=(1<<p)*dp[i][1];
+	  	}
+	  	cout<<ans<<endl;
+	  	return 0;
+	  }
+	  ```
+-
+-
+-

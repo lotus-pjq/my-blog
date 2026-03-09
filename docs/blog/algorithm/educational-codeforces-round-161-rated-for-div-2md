@@ -1,0 +1,139 @@
+---
+title: Educational Codeforces Round 161 (Rated for Div. 2)
+date: 2026-03-09
+category: 题解
+tags:
+  - 算法
+description: Educational Codeforces Round 161 (Rated for Div. 2)相关的算法笔记和代码模板
+---
+
+### D #DSU
+	- 题目
+		- ![image.png](../assets/image_1759973738915_0.png){:height 649, :width 804}
+		- ![image.png](../assets/image_1759973759238_0.png){:height 523, :width 806}
+	- 思路
+		- ![image.png](../assets/image_1759973861785_0.png)
+	- 代码1(标程)
+		- ```C++
+		  #include<bits/stdc++.h>
+		  using namespace std;
+		  #define int long long
+		  #define endl '\n'
+		  #define INF 0x3f3f3f3f3f3f3f3f
+		  const int N=3e5+5;
+		  int a[N],d[N];
+		  void solve(){
+		  	int n;cin>>n;
+		  	for(int i=1;i<=n;i++) cin>>a[i];
+		  	for(int i=1;i<=n;i++) cin>>d[i];
+		  	a[0]=a[n+1]=0;	
+		  	d[0]=d[n+1]=INF;
+		  	set<int> rem,cur;//rem:剩下的，cur:目前候选的
+		  	for(int i=0;i<=n+1;i++){
+		  		rem.insert(i);
+		  		cur.insert(i);
+		  	}
+		  	for(int z=0;z<n;z++){
+		  		set<int> del,nex;//del:删除的,ncur:下一轮加入候选的
+		  		for(int i:cur){
+		  			auto it=rem.find(i);
+		  			if(it==rem.end()) continue;//i已经死了
+		  			int prv=*prev(it);
+		  			int nxt=*next(it);
+		  			if(a[prv]+a[nxt]>d[i]){
+		  				del.insert(i);
+		  				nex.insert(prv);
+		  				nex.insert(nxt);
+		  			}
+		  		}
+		  		cout<<del.size()<<" ";
+		  		for(auto it:del) rem.erase(it);
+		  		cur=nex;
+		  	}
+		  	cout<<endl;
+		  }
+		  signed main(){
+		      ios::sync_with_stdio(false);
+		      cin.tie(nullptr);
+		      int t=1;cin>>t;
+		      while(t--) solve();
+		      return 0;
+		  }
+		  ```
+	- 代码2(林大神)
+		- ![cb3d30359a64bf26989353a1e132a43c.png](../assets/cb3d30359a64bf26989353a1e132a43c_1759974015727_0.png){:height 655, :width 395}
+- ### E #分治 #按位 #构造
+	- 题目
+		- 构造一个长度不超过200的序列，使得其递增子序列数量为X，空串算一个子串。（2<=X<=1e18)
+		- 输入X，输出构造的序列长度以及序列内容。
+	- 思路1（标程）
+		- ![image.png](../assets/image_1759991992061_0.png){:height 492, :width 705}
+	- 代码1（标程）
+		- ```C++
+		  #include<bits/stdc++.h>
+		  using namespace std;
+		  #define int long long
+		  #define endl '\n'
+		  #define pb push_back
+		  vector<int> ans;
+		  void f(int x){
+		  	if(x==2) ans.pb(0);
+		  	else if(x&1){
+		  		f(x-1);
+		  		ans.pb(*min_element(ans.begin(),ans.end())-1);
+		  	}else{
+		  		f(x>>1);
+		  		ans.pb(*max_element(ans.begin(),ans.end())+1);
+		  	}
+		  }
+		  void solve(){
+		  	int x;cin>>x;
+		  	ans.clear();
+		  	f(x);
+		  	cout<<ans.size()<<endl;
+		  	for(int i:ans) cout<<i<<" ";
+		  	cout<<endl;
+		  }
+		  signed main(){
+		      ios::sync_with_stdio(false);
+		      cin.tie(nullptr);
+		      int t=1;cin>>t;
+		      while(t--) solve();
+		      return 0;
+		  }
+		  
+		  ```
+	- 思路2
+		- x=1001011...0 (2进制)
+		- 最高1的二进制位是bm,考虑在1.2.3.4...（bm-1）这样子的数组上插数来影响数量，
+		- 只需要如果i位是1，则在i之前补一个bm即可
+	- 代码2
+		- ```C++
+		  #include<bits/stdc++.h>
+		  using namespace std;
+		  #define int long long
+		  #define endl '\n'
+		  #define pb push_back
+		  void solve(){
+		      int x;cin>>x;
+		  	int bm;
+		  	for(bm=62;bm>=0;bm--)
+		  		if(x>>bm&1) break;
+		  	vector<int> ans;
+		  	for(int i=0;i<bm;i++){
+		  		if(x>>i&1) ans.pb(bm);
+		  		ans.pb(i);
+		  	}
+		  	cout<<ans.size()<<endl;
+		  	for(int i:ans) cout<<i<<" ";
+		  	cout<<endl;
+		  }
+		  signed main(){
+		      ios::sync_with_stdio(false);
+		      cin.tie(nullptr);
+		      int t=1;cin>>t;
+		      while(t--) solve();
+		      return 0;
+		  }
+		  
+		  ```

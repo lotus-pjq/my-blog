@@ -1,0 +1,30 @@
+---
+title: 蔡勒公式
+date: 2026-03-09
+category: 数学
+tags:
+  - 算法
+description: 蔡勒公式相关的算法笔记和代码模板
+---
+
+### 蔡勒公式（Zeller's Congruence）是一个用于计算给定日期是星期几的公式。
+- 通过将日期代入公式，可以快速得出该日期对应的星期数。
+- >W = [C/4] - 2C + y + [y/4] + [13 * (M+1) / 5] + d - 1
+	- 其中：
+	  **W**：星期数，对7取模后，0表示星期日，1表示星期一，依此类推。
+	  **C**：世纪数减一，即年份的前两位数。
+	  **y**：年份的后两位数。
+	  **M**：月份，1月和2月要看作上一年的13月和14月。
+	  **d**：日期。
+	  **[]**：表示取整，即只保留整数部分。
+- ```C++
+  int xq(unsigned int year,unsigned int mon,unsigned int day) {
+  	int week=0,y=0,c=0,m=0,d=0;
+  	if(mon==1||mon==2) c=(year-1)/100,y=(year-1)%100,m=mon+12,d=day;
+  	else c=year/100,y=year%100,m=mon,d=day;
+  	week=y+y/4+c/4-2*c+26*(m+1)/10+d-1;
+  	week=(week>=0)?(week%7):(week%7+7);
+  	if(week==0) week=7;
+  	return week;
+  }
+  ```

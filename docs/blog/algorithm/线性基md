@@ -1,0 +1,228 @@
+---
+title: 线性基
+date: 2026-03-09
+category: 数学
+tags:
+  - 算法/线性基
+  - 算法/高斯消元
+  - 数学/线性代数
+  - 技巧/异或
+  - 模板
+description: 线性基相关的算法笔记和代码模板
+---
+
+tags:: #算法/线性基 #算法/高斯消元 #数学/线性代数 #技巧/异或 #模板
+
+## 板子1：高斯消元构造：#异或
+	- #高斯消元
+	- 给定 *n* 个整数（数字可能重复），求在这些数中选取任意个，使得他们的异或和最大。
+	- ### 用高斯消元得到的线性基的性质：
+		- 最简阶梯形
+		  每一行的 最高有效位（MSB） 互不相同，且 严格右移。
+		  ==从上到下单调递减==
+		  >0...01....
+		  0...001....
+		  0...0001...
+		- **a[0]** 保存的是 **最高位** 的基向量（最高有效位最靠左）。
+		  **a[k-1]** 保存的是 **最低位** 的基向量（最高有效位最靠右）。
+		  > **a[0] 的最高位 ≥ a[k-1] 的最高位**，
+		  换句话说 **a[0] ≥ a[k-1]**（按最高有效位比较）
+	- ```C++
+	  #include<bits/stdc++.h>
+	  using namespace std;
+	  #define int long long
+	  #define endl '\n'
+	  int a[55];//下标从0开始
+	  int n,k;//k:基向量个数	
+	  void Linear_base(){
+	  	k=0;
+	  	//1.把第i位是1的数换上去
+	  	//2.把其他第i位全部消成0
+	  	for(int i=62;i>=0;i--){
+	  		for(int j=k;j<n;j++)
+	  			if(a[j]>>i&1){swap(a[j],a[k]);break;}
+	  		if((a[k]>>i&1)==0) continue;
+	  		for(int j=0;j<n;j++)
+	  			if(j!=k&&(a[j]>>i&1)) a[j]^=a[k];
+	  		k++;if(k==n) break;
+	  	}
+	  }
+	  signed main(){
+	  	ios::sync_with_stdio(false);
+	  	cin.tie(nullptr);
+	  	cin>>n;
+	  	for(int i=0;i<n;i++) cin>>a[i];
+	  	Linear_base();
+	  	int ans=0;
+	  	for(int i=0;i<k;i++) ans^=a[i];
+	  	cout<<ans;
+	  	return 0;
+	  }
+	  ```
+- ## 第K小异或和 #高斯消元构造线性基
+	- HDU 3949XOR
+	- ```C++
+	  #include<bits/stdc++.h>
+	  using namespace std;
+	  #define int long long
+	  #define endl '\n'
+	  int a[55];//下标从0开始
+	  int n,k;//k:基向量个数	
+	  void Linear_base(){
+	  	k=0;	
+	  	//1.把第i位是1的数换上去
+	  	//2.把其他第i位全部消成0
+	  	for(int i=62;i>=0;i--){
+	  		for(int j=k;j<n;j++)
+	  			if(a[j]>>i&1){swap(a[j],a[k]);break;}
+	  		if((a[k]>>i&1)==0) continue;
+	  		for(int j=0;j<n;j++)
+	  			if(j!=k&&(a[j]>>i&1)) a[j]^=a[k];
+	  		k++;if(k==n) break;
+	  	}
+	  }
+	  void solve(){
+	  	cin>>n;
+	  	for(int i=0;i<n;i++) cin>>a[i];
+	  	Linear_base();
+	  	int q;cin>>q;//查询次数
+	  	while(q--){
+	  		int x;cin>>x;//第x小
+	  		if(k<n) x--;
+	  		if(x>=(1ll<<k)) cout<<-1<<endl;
+	  		else{
+	  			int ans=0;
+	  			for(int i=0;i<k;i++)
+	  				if(x>>i&1) ans^=a[k-i-1];
+	  			cout<<ans<<endl;
+	  		}
+	  	}
+	  }
+	  signed main(){
+	  	ios::sync_with_stdio(false);
+	  	cin.tie(nullptr);
+	  	int t;cin>>t;
+	  	while(t--) solve();
+	  	return 0;
+	  }
+	  ```
+- ## 板子2：贪心法构造：#异或
+	- ```C++
+	  #include<bits/stdc++.h>
+	  using namespace std;
+	  #define int long long
+	  #define endl '\n'
+	  int n,p[64];
+	  void insert(int x){//贪心法
+	  	for(int i=63;i>=0;--i)
+	  		if(x>>i&1){
+	  			if(!p[i]){p[i]=x;break;}//不存在则加入
+	  			x^=p[i];//存在则异或
+	  		}
+	  }
+	  signed main(){
+	  	ios::sync_with_stdio(false);
+	  	cin.tie(nullptr);
+	  	cin>>n;
+	  	int x;
+	  	for(int i=0;i<n;i++){cin>>x;insert(x);}
+	  	int ans=0;
+	  	for(int i=63;i>=0;i--) ans=max(ans,ans^p[i]);
+	  	cout<<ans;
+	  	return 0;
+	  }
+	  ```
+	-
+- ## [[P4570 [BJWC2011] 元素]] #贪心法构造线性基
+- ## [[P4301 [CQOI2013] 新Nim游戏]] #博弈 #贪心法构造线性基
+- ## 图上最大异或路径：[[P4151 [WC2011] 最大XOR和路径]] #图论 #线性基
+- ## 板子3：实数线性基 [[P3265 [JLOI2015] 装备购买]]  #高斯消元构造线性基
+- ## 板子4：序列区间异或和：1100F - Ivan and Burgers #前缀线性基
+- ## 树上区间异或和：[[P3292 [SCOI2016] 幸运数字]] #前缀线性基 #树
+- ## 板子5：可删除线性基[[P3733 [HAOI2017] 八纵八横]] #可删除线性基 #离线
+- ## [I-BenzenE_2026牛客寒假算法基础集训营3](https://ac.nowcoder.com/acm/contest/120563/I)
+	- code
+		- ```C++
+		        
+		  #include<bits/stdc++.h>
+		  using namespace std;
+		  #define int long long
+		  #define endl '\n'
+		  const int N=2e5+5;
+		  int	a[N],b[N];
+		  bool flip[N];
+		  void solve(){
+		  	int n;cin>>n;
+		  	int x=0;
+		  	for(int i=1;i<=n;i++) cin>>a[i],x^=a[i];
+		  	for(int i=1;i<=n;i++) cin>>b[i];
+		  	if(x==0){
+		  		for(int i=1;i<=n;i++) cout<<a[i]<<((i==n)?'\n':' ');
+		  		return;
+		  	}
+		  	int bas[30]={}; //线性基中每个位置的值
+		  	int msk[30]={};//记录该基向量由哪些原始d值组合而成（30位掩码）
+		  	int idx[30]={}; //第k个插入的基向量对应的原始下标
+		  	int cnt=0;        //已插入的基向量数量
+		  	for(int i=1;i<=n;i++){
+		  		int d=a[i]^b[i];
+		  		if(d==0) continue;
+		  		int cur=d;
+		  		int comp=(1<<cnt);//组成:暂时标记为第m个基向量
+		  		for(int bit=29;bit>=0;bit--){
+		  			if(((cur>>bit)&1)==0) continue;
+		  			if(!bas[bit]){
+		  				bas[bit]=cur;
+		  				msk[bit]=comp;
+		  				idx[cnt++]=i;
+		  				break;
+		  			}
+		  			cur^=bas[bit];
+		  			comp^=msk[bit];//同步维护
+		  		}
+		  		if(cnt>=30) break;
+		  	}
+		  	int cur=x;
+		  	int res=0;
+		  	for(int bit=29;bit>=0;bit--){
+		  		if(((cur>>bit)&1)==0) continue;
+		  		if(!bas[bit]) continue;
+		  		cur^=bas[bit];
+		  		res^=msk[bit];
+		  	}
+		  	if(cur!=0) cout<<-1<<endl;
+		  	else{
+		  		for(int i=1;i<=n;i++) flip[i]=false;
+		  		for(int k=0;k<cnt;k++)
+		  			if((res>>k)&1) flip[idx[k]]=true;
+		  		for(int i=1;i<=n;i++)
+		  			cout<<(flip[i]?b[i]:a[i])<<((i==n)?'\n':' ');
+		  	}
+		  }
+		  signed main(){
+		      ios::sync_with_stdio(false);
+		      cin.tie(nullptr);
+		      int t=1;cin>>t;
+		      while(t--) solve();
+		      return 0;
+		  }
+		  ```
+	- tip:
+		- 亮点1:第一步的转换，变成单个集合求子集的异或值
+		- 亮点2:需要记录每个基是由哪些原来的数组成的（是由哪几个已有的基和原数异或后构成，并记录每个基的原数）<位掩码思想>
+	-
+	  1. 题目大意
+		- 给定两个长度为 的数组 和 。你需要构造一个数组 ，满足以下条件：
+		- 对于每个位置 ，有 或 。
+		  数组 的所有元素异或和为 0，即 。
+		  如果存在这样的 ，输出数组；否则输出 -1。
+	- 2.性质推导
+		- 转化思路： 假设我们初始选择的全是 数组，此时的总异或和为 。 如果我们把第 个位置从 换成 ，总异或和的变化量为 。 即：。
+		- 目标转化： 我们要选择若干个位置进行翻转（从 变成 ），使得最终异或和为 0。 假设我们要翻转的下标集合为 ，则需要满足：
+		- 算法模型： 问题转化为：在集合 中，是否存在一个子集，其异或和等于 （初始 的异或和）。 这是一个经典的线性基问题。
+		- 方案构造： 我们不仅需要判断是否存在，还需要知道具体选择了哪些 。
+		- 构造线性基时，额外维护一个信息：当前基底是由哪些 异或得到的。
+		  在这份代码中，采用了一种巧妙的位掩码（Mask） 方式：
+		  记录插入线性基的第 个原始向量对应的原数组下标 idx[k]。
+		  msk[bit] 记录基底 bas[bit] 是由哪些第 个向量组合而成的（状态压缩）。
+		  最后查询 是否能被线性基表出。如果能，根据表出路径上的 msk 异或和，确定需要翻转哪些位置。

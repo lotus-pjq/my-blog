@@ -1,0 +1,81 @@
+---
+title: 找最小原根模板
+date: 2026-03-09
+category: 数论
+tags:
+  - 算法
+description: 找最小原根模板相关的算法笔记和代码模板
+---
+
+- 如果一个数有原根，可以先求出最小正原根。
+- >王元于 1959 年证明了若 *m* 有原根，其最小原根是不多于 *m*0.25 级别的。
+  事实上，由大量试验数据可以发现，对于足够大的 *m*，其最小正原根的大小不是多项式级别的。
+  ——百度百科
+- 可以感性理解一下，模 *m* 的原根有 *φ*(*φ*(*m*)) 个，密度很大，所以最小原根很小。
+- ```C++
+  int P;
+  const int NUM=32170;
+  int pri[NUM/4];
+  bool f[NUM];
+  int pNum=0;
+  void getprime(){
+      for(int i=2;i<NUM;++i){
+          if(!f[i]){
+              f[i]=1;
+              pri[pNum++]=i;
+          }
+          for(int j=0;j<pNum&&i*pri[j]<NUM;++j){
+              f[i*pri[j]]=1;
+              if(i%pri[j]==0) break;
+          }
+      }
+  }
+  int ksm(int a,int b,int P){
+      int ans=1;
+      int tmp=a;
+      while(b){
+          if(b&1) ans=ans*tmp%P;
+          tmp=tmp*tmp%P;
+          b>>=1;
+      }return ans;
+  }
+  bool judge(int num){
+      int ele[1000];
+      int eNum=0;
+      int k=P-1;
+      for(int i=0;i<pNum;++i){
+          bool flag=false;
+          while(!(k%pri[i])){
+              flag=true;
+              k/=pri[i];
+          }
+          if(flag) ele[eNum++]=pri[i];
+          if(k==1) break;
+          if(k/pri[i]<pri[i]){
+              ele[eNum++]=pri[i];
+              break;
+          }
+      }
+      bool flag=true;
+      for(int i=0;i<eNum;++i)
+          if(ksm(num,(P-1)/ele[i],P)==1){
+              flag=false;
+              break;
+          }
+      return flag;
+  }
+  signed main(){
+  	ios::sync_with_stdio(false);
+  	cin.tie(0);
+      getprime();
+      int op;
+      cin>>P;
+  	for(int i=2;;++i)
+  		if(judge(i)){
+  			op=i;
+  			break;
+  		}
+      //cout<<op<<endl;
+  }
+  ```
+-

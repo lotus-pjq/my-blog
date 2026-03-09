@@ -6,10 +6,45 @@ title: Blog
   <section class="page-panel page-intro">
     <div class="page-kicker">Blog</div>
     <h1 class="page-heading">文章归档</h1>
-    <p class="page-lead">先只展示当前真实存在且可访问的内容，避免“卡片很多、点进去没有”的体验问题。</p>
+    <p class="page-lead">技术博客、算法笔记与项目记录</p>
+    <div style="margin-top: 1.5rem;">
+      <a href="./algorithm-archive" style="display: inline-block; padding: 0.8rem 1.5rem; background: var(--vp-c-brand); color: white; border-radius: 6px; text-decoration: none; font-weight: 600; transition: all 0.3s;">
+        📚 浏览全部算法笔记 (146篇)
+      </a>
+    </div>
   </section>
 
   <section class="page-grid">
+    <article class="page-card page-card--featured">
+      <div class="page-kicker">Featured</div>
+      <h3><a href="./algorithm-archive">算法笔记归档</a></h3>
+      <p>146篇算法竞赛笔记，涵盖数据结构、图论、数论、数学、动态规划等领域。支持分类和标签筛选。</p>
+      <div style="margin-top: 1rem; display: flex; gap: 0.5rem; flex-wrap: wrap;">
+        <span style="padding: 0.3rem 0.6rem; background: var(--vp-c-bg-soft); border-radius: 4px; font-size: 0.85rem;">数据结构 15篇</span>
+        <span style="padding: 0.3rem 0.6rem; background: var(--vp-c-bg-soft); border-radius: 4px; font-size: 0.85rem;">数论 22篇</span>
+        <span style="padding: 0.3rem 0.6rem; background: var(--vp-c-bg-soft); border-radius: 4px; font-size: 0.85rem;">图论 10篇</span>
+        <span style="padding: 0.3rem 0.6rem; background: var(--vp-c-bg-soft); border-radius: 4px; font-size: 0.85rem;">题解 46篇</span>
+      </div>
+    </article>
+
+    <article class="page-card">
+      <div class="post-meta"><span>Algorithm</span><span>2026-03-09</span><span>算法模板</span></div>
+      <h3><a href="./algorithm/game-theory-guide">博弈论完全指南：从必胜必败到SG函数</a></h3>
+      <p>系统总结博弈论中的必胜必败分析、SG函数理论及常见博弈模型，包含完整的代码模板和经典例题。</p>
+    </article>
+
+    <article class="page-card">
+      <div class="post-meta"><span>Algorithm</span><span>2026-03-09</span><span>算法模板</span></div>
+      <h3><a href="./algorithm/linear-basis-guide">线性基完全指南：从高斯消元到贪心构造</a></h3>
+      <p>详解线性基的多种构造方法、性质分析及经典应用，包含高斯消元、贪心法、前缀线性基等完整模板。</p>
+    </article>
+
+    <article class="page-card">
+      <div class="post-meta"><span>Algorithm</span><span>2026-03-09</span><span>算法模板</span></div>
+      <h3><a href="./algorithm/heavy-light-decomposition">树链剖分完全指南：从理论到实战</a></h3>
+      <p>详解树链剖分的原理、实现和应用，包含完整的代码模板和复杂度证明。</p>
+    </article>
+
     <article class="page-card">
       <div class="post-meta"><span>Algorithm</span><span>2026-03-01</span><span>题解方法</span></div>
       <h3><a href="./algorithm-structured-thinking">算法竞赛中的结构化思维</a></h3>
@@ -35,14 +70,23 @@ title: Blog
     </article>
 
     <article class="page-card page-card--wide">
-      <div class="page-kicker">Next</div>
-      <h3>后续准备补充的内容</h3>
-      <ul class="bullet-list">
-        <li>图论专题题解与模板整理</li>
-        <li>学习方法与笔记结构化方法</li>
-        <li>更多与博客设计相关的页面改版记录</li>
-      </ul>
-      <p class="muted-note">等对应文章文件真正写出来之后，再加入归档列表。</p>
+      <div class="page-kicker">Stats</div>
+      <h3>内容统计</h3>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1rem; margin-top: 1rem;">
+        <div style="text-align: center; padding: 1rem; background: var(--vp-c-bg-soft); border-radius: 6px;">
+          <div style="font-size: 2rem; font-weight: bold; color: var(--vp-c-brand);">146</div>
+          <div style="color: var(--vp-c-text-2); margin-top: 0.5rem;">算法笔记</div>
+        </div>
+        <div style="text-align: center; padding: 1rem; background: var(--vp-c-bg-soft); border-radius: 6px;">
+          <div style="font-size: 2rem; font-weight: bold; color: var(--vp-c-brand);">9</div>
+          <div style="color: var(--vp-c-text-2); margin-top: 0.5rem;">算法分类</div>
+        </div>
+        <div style="text-align: center; padding: 1rem; background: var(--vp-c-bg-soft); border-radius: 6px;">
+          <div style="font-size: 2rem; font-weight: bold; color: var(--vp-c-brand);">46</div>
+          <div style="color: var(--vp-c-text-2); margin-top: 0.5rem;">题解</div>
+        </div>
+      </div>
+      <p class="muted-note" style="margin-top: 1rem;">所有笔记均来自ACM竞赛学习过程，持续整理更新中。</p>
     </article>
   </section>
 </div>
