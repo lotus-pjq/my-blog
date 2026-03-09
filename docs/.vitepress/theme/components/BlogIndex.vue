@@ -58,10 +58,12 @@
 </template>
 
 <script setup>
+import { withBase } from 'vitepress'
+
 const featuredArticles = [
   {
     title: '博弈论完全指南：从必胜必败到SG函数',
-    link: './algorithm/博弈论.md',
+    link: withBase('/blog/algorithm/博弈论.html'),
     category: 'Algorithm',
     date: '2026-03-09',
     tag: '算法模板',
@@ -69,7 +71,7 @@ const featuredArticles = [
   },
   {
     title: '线性基完全指南：从高斯消元到贪心构造',
-    link: './algorithm/线性基.md',
+    link: withBase('/blog/algorithm/线性基.html'),
     category: 'Algorithm',
     date: '2026-03-09',
     tag: '算法模板',
@@ -77,7 +79,7 @@ const featuredArticles = [
   },
   {
     title: '树链剖分完全指南：从理论到实战',
-    link: './algorithm/树链剖分.md',
+    link: withBase('/blog/algorithm/树链剖分.html'),
     category: 'Algorithm',
     date: '2026-03-09',
     tag: '算法模板',
@@ -85,7 +87,7 @@ const featuredArticles = [
   },
   {
     title: '莫队算法详解',
-    link: './algorithm/莫队算法.md',
+    link: withBase('/blog/algorithm/莫队算法.html'),
     category: 'Algorithm',
     date: '2026-03-09',
     tag: '数据结构',
@@ -93,7 +95,7 @@ const featuredArticles = [
   },
   {
     title: 'LCA最近公共祖先',
-    link: './algorithm/LCA.md',
+    link: withBase('/blog/algorithm/LCA.html'),
     category: 'Algorithm',
     date: '2026-03-09',
     tag: '图论',
@@ -101,7 +103,7 @@ const featuredArticles = [
   },
   {
     title: 'FFT快速傅里叶变换',
-    link: './algorithm/FFT.md',
+    link: withBase('/blog/algorithm/FFT.html'),
     category: 'Algorithm',
     date: '2026-03-09',
     tag: '数学',
@@ -109,7 +111,7 @@ const featuredArticles = [
   },
   {
     title: '背包专题',
-    link: './algorithm/背包专题.md',
+    link: withBase('/blog/algorithm/背包专题.html'),
     category: 'Algorithm',
     date: '2026-03-09',
     tag: '动态规划',
