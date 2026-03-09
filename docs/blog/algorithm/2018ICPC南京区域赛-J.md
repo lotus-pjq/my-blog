@@ -1,34 +1,29 @@
 ---
 title: 2018ICPC南京区域赛-J
-date: 2026-03-09
+date: 2025-10-11
 category: 题解
 tags:
   - 算法
-description: 2018ICPC南京区域赛-J相关的算法笔记和代码模板
+outline: deep
 ---
 
-- 题目
-	- 
+- 题目- 
 - 思路
-	- 
+- 
 - 代码
-	- ```C++
-	  #include<bits/stdc++.h>
+- ```C++
+	  #include
 	  using namespace std;
 	  #define int long long
 	  #define endl '\n'
 	  const int N=1e6+5;
 	  int pnum;
-	  vector<int> pri;
-	  vector<int> mpf,phi;//min prime factor
+	  vector pri;
+	  vector mpf,phi;//min prime factor
 	  void get_prime(int n){
 	    mpf.resize(n+1,0);
 	    phi.resize(n+1,0);phi[1]=1;
-	    for(int i=2;i<=n;i++){
-	      if(mpf[i]==0){
-	        mpf[i]=i,phi[i]=i-1,pnum++,pri.push_back(i);}
-	      for(int p:pri){
-	        if(i*p>n) break;
+	    for(int i=2;in) break;
 	        mpf[i*p]=p;
 	        if(mpf[i]==p){phi[p*i]=phi[i]*p;break;}
 	        else phi[i*p]=phi[i]*(p-1);
@@ -36,18 +31,15 @@ description: 2018ICPC南京区域赛-J相关的算法笔记和代码模板
 	    }
 	  }
 	  int n,a[N];
-	  vector<int> pos[N];
-	  set<int> occ;
+	  vector pos[N];
+	  set occ;
 	  signed main(){
 	  	ios::sync_with_stdio(false);
 	  	cin.tie(nullptr);
 	  	get_prime(N);
 	  	cin>>n;
-	  	for(int i=1;i<=n;i++) cin>>a[i];
-	  	for(int i=1,x,p;i<=n;i++){
-	  		x=a[i];
-	  		if(x==1) continue;
-	  		while(x>1){
+	  	for(int i=1;i>a[i];
+	  	for(int i=1,x,p;i1){
 	  			p=mpf[x];
 	  			pos[p].push_back(i);
 	  			occ.insert(p);

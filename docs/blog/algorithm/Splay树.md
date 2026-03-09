@@ -1,22 +1,21 @@
 ---
 title: Splay树
-date: 2026-03-09
+date: 2025-08-13
 category: 数据结构
 tags:
   - 算法
-description: Splay树相关的算法笔记和代码模板
+outline: deep
 ---
 
 - #数据结构
 - 无注释模版:
-	- ```C++
-	  #include<bits/stdc++.h>
+- ```C++
+	  #include
 	  using namespace std;
 	  #define int long long
 	  #define endl '\n'
 	  #define INF 0x3f3f3f3f3f3f3f3f
-	  #define rep(i,j,k) for (int i=j;i<=k;++i)
-	  #define per(i,j,k) for (int i=j;i>=k;--i)
+	  #define rep(i,j,k) for (int i=j;i=k;--i)
 	  const int mod=1e9+7;
 	  const int N=2e5+5;
 	  #define ls(x) tr[x].s[0]
@@ -70,16 +69,7 @@ description: Splay树相关的算法笔记和代码模板
 	  int getpre(int v){
 	  	find(v);
 	  	int x=root;
-	  	if(tr[x].val<v) return x;
-	  	x=ls(x);
-	  	while(rs(x)) x=rs(x);
-	  	splay(x,0);
-	  	return x;
-	  }
-	  int getsuc(int v){
-	  	find(v);
-	  	int x=root;
-	  	if(tr[x].val>v) return x;
+	  	if(tr[x].valv) return x;
 	  	x=rs(x);
 	  	while(ls(x)) x=ls(x);
 	  	splay(x,0);
@@ -102,39 +92,17 @@ description: Splay树相关的算法笔记和代码模板
 	  	++k;
 	  	int x=root;
 	  	while(true){
-	  		if(k<=tr[ls(x)].siz) x=ls(x);
-	  		else if(k<=tr[ls(x)].siz+tr[x].cnt) break;
-	  		else k-=tr[ls(x)].siz+tr[x].cnt, x=rs(x);
-	  	}
-	  	splay(x,0);
-	  	return tr[x].val;
-	  }
-	  signed main(){
-	  	ios::sync_with_stdio(false);
-	  	cin.tie(nullptr);
-	  	insert(-INF);insert(INF);
-	  	int n,op,x;cin>>n;
+	  		if(k>n;
 	  	while(n--){
 	  		cin>>op>>x;
 	  		if(op==1) insert(x);
 	  		else if(op==2) del(x);
-	  		else if(op==3) cout<<getrank(x)<<endl;
-	  		else if(op==4) cout<<getval(x)<<endl;
-	  		else if(op==5) cout<<tr[getpre(x)].val<<endl;
-	  		else cout<<tr[getsuc(x)].val<<endl;
-	  	}
-	  	return 0;
-	  }
-	  ```
-- 有注释模版:
-	- ```C++
-	  #include<bits/stdc++.h>
+	  		else if(op==3) cout
 	  using namespace std;
 	  #define int long long
 	  #define endl '\n'
 	  #define INF 0x3f3f3f3f3f3f3f3f
-	  #define rep(i,j,k) for (int i=j;i<=k;++i)
-	  #define per(i,j,k) for (int i=j;i>=k;--i)
+	  #define rep(i,j,k) for (int i=j;i=k;--i)
 	  const int mod=1e9+7;
 	  const int N=2e5+5;
 	  #define ls(x) tr[x].s[0]
@@ -186,16 +154,7 @@ description: Splay树相关的算法笔记和代码模板
 	  int getpre(int v){//前驱
 	  	find(v);
 	  	int x=root;
-	  	if(tr[x].val<v) return x;
-	  	x=ls(x);
-	  	while(rs(x)) x=rs(x);
-	  	splay(x,0);
-	  	return x;
-	  }
-	  int getsuc(int v){//后继
-	  	find(v);
-	  	int x=root;
-	  	if(tr[x].val>v) return x;
+	  	if(tr[x].valv) return x;
 	  	x=rs(x);
 	  	while(ls(x)) x=ls(x);
 	  	splay(x,0);
@@ -218,18 +177,7 @@ description: Splay树相关的算法笔记和代码模板
 	  	++k;
 	  	int x=root;
 	  	while(true){
-	  		if(k<=tr[ls(x)].siz) x=ls(x);
-	  		else if(k<=tr[ls(x)].siz+tr[x].cnt) break;
-	  		else k-=tr[ls(x)].siz+tr[x].cnt, x=rs(x);
-	  	}
-	  	splay(x,0);
-	  	return tr[x].val;
-	  }
-	  signed main(){
-	  	ios::sync_with_stdio(false);
-	  	cin.tie(nullptr);
-	  	insert(-INF);insert(INF);//哨兵
-	  	int n,op,x;cin>>n;
+	  		if(k>n;
 	  	while(n--){
 	  		cin>>op>>x;
 	  		if(op==1) insert(x);

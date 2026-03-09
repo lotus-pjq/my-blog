@@ -1,57 +1,37 @@
 ---
 title: Educational Codeforces Round 153 (Rated for Div. 2)
-date: 2026-03-09
+date: 2025-09-26
 category: 题解
 tags:
   - 算法
-description: Educational Codeforces Round 153 (Rated for Div. 2)相关的算法笔记和代码模板
+outline: deep
 ---
 
-## A #字符串 #构造
-	- 题目
-		- 
-	- 代码
-		- ```C++
-		  #include<bits/stdc++.h>
+## A #字符串 #构造- 题目
+  - 
+- 代码
+  - ```C++
+		  #include
 		  using namespace std;
-		  #define rep(i,j,k) for (int i=j;i<=k;++i)
-		  #define endl '\n'
-		  void solve(){
-		  	string s,a="",b="";
-		  	cin>>s;
+		  #define rep(i,j,k) for (int i=j;i>s;
 		  	int n=s.size();
 		  	rep(i,1,n) a+='(';
 		  	rep(i,1,n) a+=')';
 		  	rep(i,1,n) b+="()";
-		  	if(s.size()==2&&s=="()") cout<<"NO"<<endl;
-		  	else{
-		  		if(a.find(s)==-1) cout<<"YES"<<endl<<a<<endl;
-		  		else if(b.find(s)==-1) cout<<"YES"<<endl<<b<<endl;
-		  	}
-		  
-		  }
-		  signed main(){
-		  	ios::sync_with_stdio(false);
-		  	cin.tie(nullptr);
-		  	int t;cin>>t;
+		  	if(s.size()==2&&s=="()") cout>t;
 		  	while(t--) solve();
 		  	return 0;
 		  }
 		  ```
-- ## B
-	- 题目
-		- 
+- ## B- 题目- 
 		-
-	- 代码
-		- ```C++
-		  #include<bits/stdc++.h>
+- 代码
+
+```C++
+		  #include
 		  using namespace std;
 		  #define INF 0x3f3f3f3f3f3f3f3f
-		  #define rep(i,j,k) for (int i=j;i<=k;++i)
-		  #define int long long
-		  #define endl '\n'
-		  void solve(){
-		  	int m,k,a1,ak;cin>>m>>k>>a1>>ak;
+		  #define rep(i,j,k) for (int i=j;i>m>>k>>a1>>ak;
 		  	int take_k=m/k;
 		  	int take_1=m%k;
 		  	int take_fancy_1=max(0ll,take_1-a1);
@@ -59,22 +39,16 @@ description: Educational Codeforces Round 153 (Rated for Div. 2)相关的算法�
 		  	int take_fancy_k=max(0ll,take_k-ak);
 		  	int replace=min(left_regular_1/k,take_fancy_k);
 		  	int ans=take_fancy_1+take_fancy_k-replace;
-		  	cout<<ans<<endl;
-		  }
-		  signed main(){
-		  	ios::sync_with_stdio(false);
-		  	cin.tie(nullptr);
-		  	int t;cin>>t;
+		  	cout>t;
 		  	while(t--) solve();
 		  	return 0;
 		  }
 		  ```
-- ## C #博弈
-	- 题目
-		- 
-	- 代码
-		- ```C++
-		  #include<bits/stdc++.h>
+- ## C #博弈- 题目
+  - 
+- 代码
+  - ```C++
+		  #include
 		  using namespace std;
 		  #define int long long
 		  #define endl '\n'
@@ -86,32 +60,18 @@ description: Educational Codeforces Round 153 (Rated for Div. 2)相关的算法�
 		  	int mn=n+1,mnWin=n+1,x;
 		  	while(n--){
 		  		cin>>x;
-		  		if(mn<x&&x<mnWin){
-		  			ans+=1;
-		  			mnWin=x;
-		  		}
-		  		mn=min(mn,x);
-		  	}
-		  	cout<<ans<<endl;
-		  }
-		  signed main(){
-		  	ios::sync_with_stdio(false);
-		  	cin.tie(nullptr);
-		  	int t;cin>>t;
+		  		if(mn>t;
 		  	while(t--) solve();
 		  	return 0;
 		  }
 		  ```
 - ## D #DP （？)
-	- 题目
-		- 
-	- 思路
-		- > 首先这题是个性质题目
-		- 
-	- 题解
-		- 
-		- ```C++
-		  #include <bits/stdc++.h>
+- 题目- 
+- 思路- > 首先这题是个性质题目
+  - 
+- 题解- 
+  - ```C++
+		  #include 
 		  using namespace std;
 		  using li = long long;
 		  const int N = 111;

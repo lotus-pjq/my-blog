@@ -1,55 +1,35 @@
 ---
 title: 2018ICPC_WF
-date: 2026-03-09
+date: 2025-10-26
 category: 题解
 tags:
   - 算法
-description: 2018ICPC_WF相关的算法笔记和代码模板
+outline: deep
 ---
 
 ## H. Single Cut of Failure
-	- 题目
-		- 
-		- 
+- 题目- 
+  - 
 		-
-	- 思路
-		- 首先答案必然小于等于2，那么只需要判断一次切割可不可行即可。
-		- 将正方形看成一个圆环，只需要判断是否存在一个长为n的窗口$[l,r]$恰好包含n个线段的其中一个端点。
-	- 代码
-		- ```C++
-		  #include<bits/stdc++.h>
+- 思路
+  - 首先答案必然小于等于2，那么只需要判断一次切割可不可行即可。
+  - 将正方形看成一个圆环，只需要判断是否存在一个长为n的窗口$[l,r]$恰好包含n个线段的其中一个端点。
+- 代码
+  - ```C++
+		  #include
 		  using namespace std;
 		  #define int long long
 		  #define endl '\n'
 		  const int N=2e6+5;
 		  int n,m,k,w,h,x,y;
-		  int a[N<<2],vis[N];
-		  int gettp(int x,int y){
-		  	if(x==0) return 1;
-		  	else if(y==h) return 2;
-		  	else if(x==w) return 3;
-		  	else return 4;
-		  }
-		  struct node{
-		  	int x,y,id,tp;
-		  	bool operator<(const node&t)const{
-		  		if(tp!=t.tp) return tp<t.tp;
-		  		if(tp==1) return y<t.y;
-		  		else if(tp==2) return x<t.x;
-		  		else if(tp==3) return y>t.y;
+		  int a[Nt.y;
 		  		else return x>t.x;
 		  	}
-		  }p[N<<2];
-		  signed main(){
-		      ios::sync_with_stdio(false);
-		      cin.tie(nullptr);
-		  	cin>>n>>w>>h;
-		  	m=n<<1;
-		  	for(int i=1;i<=n;i++){
-		  		cin>>p[i*2-1].x>>p[i*2-1].y;
+		  }p[N>n>>w>>h;
+		  	m=n>p[i*2-1].x>>p[i*2-1].y;
 		  		p[i*2-1].id=i;
 		  		p[i*2-1].tp=gettp(p[i*2-1].x,p[i*2-1].y);
-		  		cin>>p[i<<1].x>>p[i<<1].y;
+		  		cin>>p[i>p[i<<1].y;
 		  		p[i<<1].id=i;
 		  		p[i<<1].tp=gettp(p[i<<1].x,p[i<<1].y);
 		  	}

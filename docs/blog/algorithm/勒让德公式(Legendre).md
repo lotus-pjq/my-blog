@@ -1,10 +1,10 @@
 ---
 title: 勒让德公式(Legendre)
-date: 2026-03-09
-category: 数论
+date: 2025-08-28
+category: 其他
 tags:
   - 算法
-description: 勒让德公式(Legendre)相关的算法笔记和代码模板
+outline: deep
 ---
 
 ## log(n)求阶乘 n! 中含有的素数 p 的幂次：

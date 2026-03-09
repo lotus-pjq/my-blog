@@ -1,17 +1,17 @@
 ---
 title: 最长上升子序列(LIS)
-date: 2026-03-09
-category: 动态规划
+date: 2025-08-30
+category: 其他
 tags:
   - 算法
-description: 最长上升子序列(LIS)相关的算法笔记和代码模板
+outline: deep
 ---
 
 ## 分析：
-	- 
+- 
 - ## Code：
-	- ```C++
-	  #include<bits/stdc++.h>
+- ```C++
+	  #include
 	  using namespace std;
 	  #define int long long
 	  #define endl '\n'
@@ -19,8 +19,7 @@ description: 最长上升子序列(LIS)相关的算法笔记和代码模板
 	  int a[N],b[N],len,n;
 	  int find(int x){
 	  	int l=1,r=len,mid;
-	  	while(l<=r){
-	  		mid=l+r>>1;
+	  	while(l>1;
 	  		if(b[mid]>=x) r=mid-1;
 	  		else l=mid+1;
 	  	}
@@ -30,9 +29,8 @@ description: 最长上升子序列(LIS)相关的算法笔记和代码模板
 	  	ios::sync_with_stdio(false);
 	  	cin.tie(nullptr);
 	  	cin>>n;
-	  	for(int i=1;i<=n;i++) cin>>a[i];
-	  	for(int i=1;i<=n;i++){
-	  		if(a[i]>b[len]) b[++len]=a[i];
+	  	for(int i=1;i>a[i];
+	  	for(int i=1;ib[len]) b[++len]=a[i];
 	  		else b[find(a[i])]=a[i];
 	  	}
 	  	cout<<len;

@@ -1,22 +1,21 @@
 ---
 title: Educational Codeforces Round 156 (Rated for Div. 2)
-date: 2026-03-09
+date: 2025-10-10
 category: 计算几何
 tags:
   - 算法
-description: Educational Codeforces Round 156 (Rated for Div. 2)相关的算法笔记和代码模板
+outline: deep
 ---
 
 ### B #计算几何
-	- 题目
-		- 
-		- 
-	- 思路
-		- 
+- 题目- 
+  - 
+- 思路- 
 		-
-	- 代码
-		- ```C++
-		  #include <bits/stdc++.h>
+- 代码
+
+```C++
+		  #include 
 		  using namespace std;
 		  int main() {
 		  	auto dist = [](int x1, int y1, int x2, int y2) {

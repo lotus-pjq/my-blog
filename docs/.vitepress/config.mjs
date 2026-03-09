@@ -20,22 +20,83 @@ export default defineConfig({
     ],
 
     sidebar: {
+      '/blog/algorithm/': [
+        {
+          text: '📚 算法笔记',
+          items: [
+            { text: '← 返回博客首页', link: '/blog/' },
+            { text: '📑 算法归档', link: '/blog/algorithm-archive' },
+          ]
+        },
+        {
+          text: '🎮 博弈论',
+          collapsed: false,
+          items: [
+            { text: '博弈论总结', link: '/blog/algorithm/博弈论' },
+            { text: 'Multi-SG游戏', link: '/blog/algorithm/Multi-SG' },
+            { text: 'Every-SG游戏', link: '/blog/algorithm/Every-SG' },
+            { text: 'Anti-SG与SJ定理', link: '/blog/algorithm/Anti-SG游戏与SJ定理' },
+          ]
+        },
+        {
+          text: '📊 数据结构',
+          collapsed: true,
+          items: [
+            { text: '莫队算法', link: '/blog/algorithm/莫队算法' },
+            { text: 'Splay树', link: '/blog/algorithm/Splay树' },
+            { text: '线段树进阶', link: '/blog/algorithm/线段树进阶训练' },
+          ]
+        },
+        {
+          text: '🌲 图论',
+          collapsed: true,
+          items: [
+            { text: 'LCA', link: '/blog/algorithm/LCA' },
+            { text: '树链剖分', link: '/blog/algorithm/树链剖分' },
+            { text: '树形DP', link: '/blog/algorithm/树形DP' },
+          ]
+        },
+        {
+          text: '🔢 数论',
+          collapsed: true,
+          items: [
+            { text: 'BSGS算法', link: '/blog/algorithm/BSGS算法' },
+            { text: '原根', link: '/blog/algorithm/原根' },
+          ]
+        },
+        {
+          text: '📐 数学',
+          collapsed: true,
+          items: [
+            { text: 'FFT', link: '/blog/algorithm/FFT' },
+            { text: 'NTT', link: '/blog/algorithm/NTT' },
+            { text: '线性基', link: '/blog/algorithm/线性基' },
+          ]
+        },
+        {
+          text: '💡 动态规划',
+          collapsed: true,
+          items: [
+            { text: '背包专题', link: '/blog/algorithm/背包专题' },
+            { text: '数位DP', link: '/blog/algorithm/数位DP' },
+            { text: '状压DP', link: '/blog/algorithm/状压DP' },
+          ]
+        },
+      ],
       '/blog/': [
         {
           text: '博客文章',
           items: [
             { text: '所有文章', link: '/blog/' },
+            { text: '算法归档', link: '/blog/algorithm-archive' },
           ]
         }
       ],
-      '/projects/': [
-        {
-          text: '项目展示',
-          items: [
-            { text: '所有项目', link: '/projects/' },
-          ]
-        }
-      ],
+    },
+
+    outline: {
+      level: [2, 3],
+      label: '目录'
     },
 
     socialLinks: [
@@ -65,6 +126,15 @@ export default defineConfig({
           }
         }
       }
+    },
+
+    docFooter: {
+      prev: '上一篇',
+      next: '下一篇'
+    },
+
+    lastUpdated: {
+      text: '最后更新'
     }
   },
 
@@ -76,4 +146,3 @@ export default defineConfig({
     }
   },
 })
-

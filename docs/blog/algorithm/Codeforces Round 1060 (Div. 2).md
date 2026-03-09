@@ -1,21 +1,19 @@
 ---
 title: Codeforces Round 1060 (Div. 2)
-date: 2026-03-09
+date: 2025-10-20
 category: 数论
 tags:
   - 算法
-description: Codeforces Round 1060 (Div. 2)相关的算法笔记和代码模板
+outline: deep
 ---
 
-## C2 #数学 #筛法 #gcd
-	- 题目
-		- 
-		- 
-	- 分析
-		- 
-	- 代码
-		- ```C++
-		  #include<bits/stdc++.h>
+## C2 #数学 #筛法 #gcd- 题目- 
+  - 
+- 分析- 
+- 代码
+
+```C++
+		  #include
 		  using namespace std;
 		  #define fi first
 		  #define se second
@@ -24,61 +22,32 @@ description: Codeforces Round 1060 (Div. 2)相关的算法笔记和代码模板
 		  const int N=2e5+5;
 		  struct node{
 		  	int a,b;
-		  	bool operator<(const node&x)const{return b<x.b;}
-		  }x[N];
-		  int n,m;
-		  vector<int> mpf;
+		  	bool operator mpf;
 		  void sieve(int n){
 		  	mpf.resize(n+1,0);
-		  	for(int i=2;i<=n;i++){
-		  		if(mpf[i]) continue;
-		  		for(int j=i;j<=n;j+=i) 
-		  			mpf[j]=i;
-		  	}
-		  }
-		  void solve(){
-		  	set<int> st;
+		  	for(int i=2;i st;
 		  	cin>>n;
-		  	for(int i=1;i<=n;i++) cin>>x[i].a;
-		  	for(int i=1;i<=n;i++) cin>>x[i].b;
+		  	for(int i=1;i>x[i].a;
+		  	for(int i=1;i>x[i].b;
 		  	sort(x+1,x+n+1);
-		  	for(int i=1;i<=n;i++){
-		  		int cur=x[i].a;
-		  		set<int> tmp;
+		  	for(int i=1;i tmp;
 		  		while(cur>1){
 		  			int p=mpf[cur];
-		  			if(st.count(p)){cout<<0<<endl;return;}
-		  			while(cur%p==0) cur/=p;
-		  			tmp.insert(p);
-		  		}
-		  		for(int t:tmp) st.insert(t);
-		  	}
-		  	int ans=x[1].b+x[2].b;
-		  	for(int i=1;i<=n;i++){
-		  		int cur=x[i].a+1;
-		  		while(cur>1){
+		  			if(st.count(p)){cout1){
 		  			int p=mpf[cur];
 		  			if(st.count(p)){ans=min(ans,x[i].b);break;}
 		  			while(cur%p==0) cur/=p;
 		  		}
 		  	}
 		  	int cnt=2e9;//不能太大，不然下面cnt*x[1].b会爆longlong
-		  	for(int i=2;i<=n;i++){
-		  		int cur=x[i].a;
-		  		while(cur>1){
+		  	for(int i=2;i1){
 		  			int p=mpf[cur];
 		  			cnt=min(cnt,p-x[1].a%p);
 		  			while(cur%p==0) cur/=p;
 		  		}
 		  	}
 		  	ans=min(ans,cnt*x[1].b);
-		  	cout<<ans<<endl;
-		  }
-		  signed main(){
-		  	ios::sync_with_stdio(false);
-		  	cin.tie(nullptr);
-		  	sieve(2e5+3);
-		  	int t;cin>>t;
+		  	cout>t;
 		  	while(t--) solve();
 		  	return 0;
 		  }

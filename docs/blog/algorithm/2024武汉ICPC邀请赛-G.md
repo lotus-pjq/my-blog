@@ -1,21 +1,21 @@
 ---
 title: 2024武汉ICPC邀请赛-G
-date: 2026-03-09
+date: 2025-10-10
 category: 题解
 tags:
   - 算法
-description: 2024武汉ICPC邀请赛-G相关的算法笔记和代码模板
+outline: deep
 ---
 
 - 题目
-	- 
+- 
 	-
 - 思路
-	- 
-	- 
+- 
+- 
 - 答案
-	- ```C++
-	  #include<bits/stdc++.h>
+- ```C++
+	  #include
 	  using namespace std;
 	  #define int long long
 	  #define endl '\n'
@@ -28,12 +28,7 @@ description: 2024武汉ICPC邀请赛-G相关的算法笔记和代码模板
 	  	return d;
 	  }
 	  void cal(int n,int m,int x,int y,int dx,int dy){
-	  	for(int l=1,r;l<=n;l=r+1){
-	  		r=n/(n/l);
-	  		int p=n/l;
-	  		int tl=max({(l-x+dx-1)/dx,(y-m/p+dy-1)/dy,0ll});
-	  		int tr=min((r-x)/dx,y/dy);
-	  		if(tr>=tl){
+	  	for(int l=1,r;l=tl){
 	  			if(dx>=dy) ans=min(ans, n+m-(x+y+tr*(dx-dy))*p );
 	  			else ans=min(ans, n+m-(x+y+tl*(dx-dy))*p );
 	  		}
@@ -55,15 +50,7 @@ description: 2024武汉ICPC邀请赛-G相关的算法笔记和代码模板
 	  	Ymax=(k-a*Xmin)/b;
 	  	Ymin=(y%dy+dy)%dy;
 	  	Xmax=(k-b*Ymin)/a;
-	  	if(k%g!=0){cout<<ans<<endl;return;}
-	  	cal(n,m,Xmin,Ymax,dx,dy);
-	  	cal(m,n,Ymin,Xmax,dy,dx);
-	  	cout<<ans<<endl;
-	  }
-	  signed main(){
-	      ios::sync_with_stdio(false);
-	      cin.tie(nullptr);
-	      int t=1;cin>>t;
+	  	if(k%g!=0){cout>t;
 	      while(t--) solve();
 	      return 0;
 	  }

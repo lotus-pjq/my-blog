@@ -1,21 +1,20 @@
 ---
 title: Educational Codeforces Round 159 (Rated for Div. 2)
-date: 2026-03-09
+date: 2025-10-28
 category: 题解
 tags:
   - 算法
-description: Educational Codeforces Round 159 (Rated for Div. 2)相关的算法笔记和代码模板
+outline: deep
 ---
 
 ## B #二分 #贪心
-	- 题目
-		- 
-		- 
-	- 思路
-		- 
-	- 代码
-		- ```C++
-		  #include<bits/stdc++.h>
+- 题目- 
+  - 
+- 思路- 
+- 代码
+
+```C++
+		  #include
 		  using namespace std;
 		  #define int long long
 		  #define endl '\n'
@@ -25,28 +24,22 @@ description: Educational Codeforces Round 159 (Rated for Div. 2)相关的算法�
 		  	cin>>n>>p>>L>>t;
 		  	task=(n+6)/7;
 		  	int l=0ll,r=n,ans;
-		  	while(l<=r){
-		  		int mid=l+r>>1;
+		  	while(l>1;
 		  		if(cal(mid)>=p) ans=mid,r=mid-1;
 		  		else l=mid+1;	
 		  	}
-		  	cout<<n-ans<<endl;
-		  }
-		  signed main(){
-		      ios::sync_with_stdio(false);
-		      cin.tie(nullptr);
-		      int t=1;cin>>t;
+		  	cout>t;
 		      while(t--) solve();
 		      return 0;
 		  }
 		  ```
 - ## C #数论 #gcd #差分
-	- 题目
-		- 
-		- 
-	- 代码
-		- ```C++
-		  #include<bits/stdc++.h>
+- 题目- 
+  - 
+- 代码
+
+```C++
+		  #include
 		  using namespace std;
 		  #define int long long
 		  #define endl '\n'
@@ -58,44 +51,22 @@ description: Educational Codeforces Round 159 (Rated for Div. 2)相关的算法�
 		  struct E{int v;E*nxt;}*g[M+1],pool[N],*cur=pool,*p;int vis[M+1];
 		  void ins(int v){
 		  	int u=v&M;
-		  	if(vis[u]<T)vis[u]=T,g[u]=NULL;
-		  	for(p=g[u];p;p=p->nxt) if(p->v==v) return;
+		  	if(vis[u]nxt) if(p->v==v) return;
 		  	p=cur++;p->v=v;p->nxt=g[u];g[u]=p;
 		  }
 		  bool ask(int v){
 		  	int u=v&M;
-		  	if(vis[u]<T) return 0;
-		  	for(p=g[u];p;p=p->nxt) if(p->v==v) return 1;
+		  	if(vis[u]nxt) if(p->v==v) return 1;
 		  	return 0;
 		  }
 		  void init(){T++,cur=pool;}
 		  void solve(){
 		  	int n;cin>>n;
 		  	init();
-		  	for(int i=1;i<=n;i++) cin>>a[i],ins(a[i]);
-		  	if(n==1){cout<<1<<endl;return;}
-		  	sort(a+1,a+n+1,cmp);
-		  	//for(int i=1;i<=n;i++) cerr<<a[i]<<" ";
-		  	//cerr<<endl;
-		  	for(int i=2;i<=n;i++) dif[i]=a[i-1]-a[i];
-		  	// for(int i=1;i<=n;i++) cerr<<dif[i]<<" ";
-		  	// cerr<<endl;
-		  	int g=a[1]-a[2];
-		  	for(int i=2;i<=n;i++) g=__gcd(g,dif[i]);
-		  	int num=INF;
-		  	for(int i=1;;i++)
-		  		if(!ask(a[1]-g*i)){num=i;break;}
-		  	int cur=0;
-		  	for(int i=2;i<=n;i++) cur+=(a[1]-a[i])/g;
-		  	cout<<cur+min(num,n)<<endl;
-		  }
-		  signed main(){
-		      ios::sync_with_stdio(false);
-		      cin.tie(nullptr);
-		      int t=1;cin>>t;
+		  	for(int i=1;i>a[i],ins(a[i]);
+		  	if(n==1){cout>t;
 		      while(t--) solve();
 		      return 0;
 		  }
 		  ```
-	- 不同hash的时间
-		- 
+- 不同hash的时间- 

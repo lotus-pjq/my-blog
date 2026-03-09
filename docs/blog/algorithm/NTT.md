@@ -3,18 +3,17 @@ title: NTT
 date: 2026-03-09
 category: 数论
 tags:
-  - 算法/NTT
+  - NTT
   - 数学/多项式
   - 数论/原根
   - 模板
-description: NTT相关的算法笔记和代码模板
+outline: deep
 ---
 
 tags:: #算法/NTT #数学/多项式 #数论/原根 #模板
 
-## 模板1（董晓）
-	- ```C++
-	  #include<bits/stdc++.h>
+## 模板1（董晓）- ```C++
+	  #include
 	  using namespace std;
 	  #define int long long
 	  #define endl '\n'
@@ -41,29 +40,9 @@ tags:: #算法/NTT #数学/多项式 #数论/原根 #模板
 	      return ans;
 	  }
 	  void NTT(int A[],int n,int op){
-	      for(int i=0;i<n;i++)
-	          R[i]=R[i/2]/2+((i&1)?n/2:0);
-	      for(int i=0;i<n;i++)
-	          if(i<R[i]) swap(A[i],A[R[i]]);
-	      for(int i=2;i<=n;i<<=1){
-	          int g1=ksm(op==1?g:gi, (P-1)/i);
-	          for(int j=0;j<n;j+=i){
-	              int gk=1;
-	              for(int k=j;k<j+i/2;++k){
-	                  int x=A[k], y=gk*A[k+i/2]%P;
-	                  A[k]=(x+y)%P;
-	                  A[k+i/2]=(x-y+P)%P;
-	                  gk=gk*g1%P;
-	              }
-	          }
-	      }
-	  }
-	  signed main(){
-	      ios::sync_with_stdio(false);
-	      cin.tie(nullptr);
-	      cin>>n>>m;
-	      for(int i=0;i<=n;i++) cin>>A[i];
-	      for(int i=0;i<=m;i++) cin>>B[i];
+	      for(int i=0;i>n>>m;
+	      for(int i=0;i>A[i];
+	      for(int i=0;i>B[i];
 	      for(m=n+m,n=1; n<=m; n<<=1);
 	      gi=ksm(g,P-2); ni=ksm(n,P-2);
 	      NTT(A,n,1);
@@ -73,13 +52,13 @@ tags:: #算法/NTT #数学/多项式 #数论/原根 #模板
 	      for(int i=0;i<=m;++i) cout<<A[i]*ni%P<<" ";
 	  }
 	  ```
-- ## 多项式乘法逆元模板
+- ## `多项式乘法逆元模板`
 - ## NTT原根表
-	- 如果 $r \cdot 2^k + 1$ 是个素数，那么在$\bmod r \cdot 2^k + 1$意义下，可以处理 $2^k$ 以内规模的数据，
-	- $2281701377=17\cdot 2^{27}+1$ 是一个挺好的数，平方刚好不会爆 `long long`
-	- $1004535809=479\cdot 2^{21}+1$ 加起来刚好不会爆 `int` 也不错
-	- 还有就是 $998244353=119 \cdot 2^{23}+1$
-	- 下面是刚刚打出来的表格（$g$ 是$\bmod (r \cdot 2^k + 1)$的原根）
+- 如果 $r \cdot 2^k + 1$ 是个素数，那么在$\bmod r \cdot 2^k + 1$意义下，可以处理 $2^k$ 以内规模的数据，
+- $2281701377=17\cdot 2^{27}+1$ 是一个挺好的数，平方刚好不会爆 `long long`
+- $1004535809=479\cdot 2^{21}+1$ 加起来刚好不会爆 `int` 也不错
+- 还有就是 $998244353=119 \cdot 2^{23}+1$
+- 下面是刚刚打出来的表格（$g$ 是$\bmod (r \cdot 2^k + 1)$的原根）
 	  | $r \cdot 2^k + 1$ | $r$ | $k$ | $g$ |
 	  | ---- | ---- | ---- |
 	  | 3 | 1 | 1 | 2 |

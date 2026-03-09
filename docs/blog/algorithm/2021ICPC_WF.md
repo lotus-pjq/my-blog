@@ -1,23 +1,22 @@
 ---
 title: 2021ICPC_WF
-date: 2026-03-09
+date: 2025-10-22
 category: 题解
 tags:
   - 算法
-description: 2021ICPC_WF相关的算法笔记和代码模板
+outline: deep
 ---
 
 ### C. Fair Division #gcd #数论 #等比数列
-	- 题目
-		- 
-	- 思路
-		- 第$$i$$位的价值是：$$m \cdot p \cdot \frac{(q-p)^{i-1} \cdot q^{n-i} }{q^n - (q-p)^n}$$
-		- 要使得每一位都是整数的话必须使得 $$m\cdot p\%(q^n-(q-p)^n)==0$$
-		- 附言：gcd(p,q)=1 ->gcd(q,q-p)=1
+- 题目- 
+- 思路
+  - 第$$i$$位的价值是：$$m \cdot p \cdot \frac{(q-p)^{i-1} \cdot q^{n-i} }{q^n - (q-p)^n}$$
+  - 要使得每一位都是整数的话必须使得 $$m\cdot p\%(q^n-(q-p)^n)==0$$
+  - 附言：gcd(p,q)=1 ->gcd(q,q-p)=1
 		  证明：gcd(q,q-p)=gcd(q,q-(q-p))=gcd(q,p)=1
-	- 代码
-		- ```C++
-		  #include<bits/stdc++.h>
+- 代码
+  - ```C++
+		  #include
 		  using namespace std;
 		  #define int long long 
 		  #define endl '\n'
@@ -39,9 +38,7 @@ description: 2021ICPC_WF相关的算法笔记和代码模板
 		  	ios::sync_with_stdio(false);
 		  	cin.tie(0);
 		  	cin>>n>>mm;m=mm;
-		  	if(n>=61){cout<<"impossible"<<endl;return 0;}
-		  	for(int q=2;;q++){
-		  		if(ksm(q,n-1)>m) break;
+		  	if(n>=61){coutm) break;
 		  		for(int p=1;p<q;p++){
 		  			fm=ksm(q,n)-ksm(q-p,n);
 		  			if(gcd(p,q)!=1) continue;

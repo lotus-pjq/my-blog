@@ -1,16 +1,17 @@
 ---
 title: ACM26寒假复习
-date: 2026-03-09
+date: 2026-01-26
 category: 数据结构
 tags:
   - 算法
-description: ACM26寒假复习相关的算法笔记和代码模板
+outline: deep
 ---
 
 ## 树状数组
-	- P3374 【模板】树状数组 1
-		- ```C++
-		  #include<bits/stdc++.h>
+- P3374 【模板】树状数组 1
+
+```C++
+		  #include
 		  using namespace std;
 		  #define int long long
 		  #define endl '\n'
@@ -19,31 +20,13 @@ description: ACM26寒假复习相关的算法笔记和代码模板
 		  int n,m;
 		  int lowbit(int x){return x&(-x);}
 		  void change(int x,int k){//点修
-		  	while(x<=n) s[x]+=k,x+=lowbit(x);
-		  }
-		  int query(int x){//区查
-		  	int sum=0;
-		  	while(x) sum+=s[x],x-=lowbit(x);
-		  	return sum;
-		  }
-		  signed main(){
-		  	ios::sync_with_stdio(false);
-		  	cin.tie(0);
-		  	cin>>n>>m;
-		  	for(int i=1,x;i<=n;i++){
-		  		cin>>x;
+		  	while(x>n>>m;
+		  	for(int i=1,x;i>x;
 		  		change(i,x);
 		  	}
-		  	for(int i=1;i<=m;i++){
-		  		int op,x,y;cin>>op>>x>>y;
+		  	for(int i=1;i>op>>x>>y;
 		  		if(op==1) change(x,y);
-		  		else cout<<query(y)-query(x-1)<<endl;
-		  	}
-		  }
-		  ```
-	- P3368 【模板】树状数组 2
-		- ```C++
-		  #include<bits/stdc++.h>
+		  		else cout
 		  using namespace std;
 		  #define int long long
 		  #define endl '\n'
@@ -57,15 +40,9 @@ description: ACM26寒假复习相关的算法笔记和代码模板
 		  	return sum;
 		  }
 		  void change(int x,int k){
-		  	while(x<=n){s[x]+=k;x+=lowbit(x);}
-		  }
-		  signed main(){
-		      ios::sync_with_stdio(false);
-		      cin.tie(nullptr);
-		  	cin>>n>>m;
-		  	for(int i=1;i<=n;i++) cin>>a[i];
-		  	for(int i=1,op,x,y,k;i<=m;i++){
-		  		cin>>op;
+		  	while(x>n>>m;
+		  	for(int i=1;i>a[i];
+		  	for(int i=1,op,x,y,k;i>op;
 		  		if(op==1){
 		  			cin>>x>>y>>k;
 		  			change(x,k);change(y+1,-k);
@@ -77,6 +54,6 @@ description: ACM26寒假复习相关的算法笔记和代码模板
 		      return 0;
 		  }
 		  ```
-	- 区修区查--P3372线段树1
-		- ```C++
+- 区修区查--P3372线段树1
+  - ```C++
 		  ```

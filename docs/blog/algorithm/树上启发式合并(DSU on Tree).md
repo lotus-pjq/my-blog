@@ -1,50 +1,27 @@
 ---
 title: 树上启发式合并(DSU on Tree)
-date: 2026-03-09
+date: 2025-09-03
 category: 图论
 tags:
   - 算法
-description: 树上启发式合并(DSU on Tree)相关的算法笔记和代码模板
+outline: deep
 ---
 
 ## 引入(OIwiki) :
-	- #### Q:启发式算法是什么呢？
-	- #### A:启发式算法是基于人类的经验和直观感觉，对一些算法的优化。
-	- 举个例子，最常见的就是**并查集的启发式合并**了，代码是这样的： 
+- #### Q:启发式算法是什么呢？
+- #### A:启发式算法是基于人类的经验和直观感觉，对一些算法的优化。
+- 举个例子，最常见的就是**并查集的启发式合并**了，代码是这样的： 
 	  ```
 	  void merge(int x, int y) {
 	    int xx = find(x), yy = find(y);
-	    if (size[xx] < size[yy]) swap(xx, yy);
-	    fa[yy] = xx;
-	    size[xx] += size[yy];
-	  }
-	  ```
-	  
-	  在这里，**对于两个大小不一样的集合，我们将小的集合合并到大的集合中，而不是将大的集合合并到小的集合中。**
-	  为什么呢？这个集合的大小可以认为是集合的高度（在正常情况下），而我们将集合高度小的并到高度大的显然有助于我们找到父亲。
-	  让高度小的树成为高度较大的树的子树，这个优化可以称为启发式合并算法。
-- ## 分析：
-	- ### 先跑重链剖分，预处理出每个节点的重儿子
-	- ### 按照一下步骤遍历每个节点x：
-		- #### 1.先遍历x的轻儿子，并计算答案，但不保留遍历后对它cnt数组的贡献
-		- #### 2.遍历x的重儿子，保留遍历后它对cnt数组的贡献
-		- #### 3.再次遍历x的轻儿子，加入轻子树的贡献，得到x的答案(树上启发式合并：轻子树的结果并入重子树)。
-	- 
-	- 
-	- 
-- ## CF600E Lomsat gelral([Educational Codeforces Round 2](https://codeforces.com/contest/600))
-	- ## 题目：
-		- 
-	- ## Code:
-		- ```C++
-		  #include<bits/stdc++.h>
+	    if (size[xx] 
 		  using namespace std;
 		  #define int long long
 		  #define endl '\n'
 		  const int N=1e5+10;
 		  int n,col[N],siz[N],son[N],cnt[N],mx;
 		  int sum,ans[N];
-		  vector<int>e[N];
+		  vectore[N];
 		  void dfs1(int x,int fa){ 
 		  	siz[x]=1;
 		  	for(int y:e[x]){
@@ -79,33 +56,23 @@ description: 树上启发式合并(DSU on Tree)相关的算法笔记和代码模
 		  	ios::sync_with_stdio(false);
 		  	cin.tie(nullptr);
 		  	cin>>n;
-		  	for(int i=1;i<=n;i++) cin>>col[i];
-		  	for(int i=1,x,y;i<n;i++){
-		  		cin>>x>>y;
+		  	for(int i=1;i>col[i];
+		  	for(int i=1,x,y;i>x>>y;
 		  		e[x].push_back(y);
 		  		e[y].push_back(x);
 		  	}
 		  	dfs1(1,0);
 		  	dfs2(1,0,0);
-		  	for(int i=1;i<=n;i++) cout<<ans[i]<<" ";
-		  	return 0;
-		  }
-		  ```
-- ## G. Tree problem([ICPC Central Russia Regional Contest, 2024](https://codeforces.com/gym/106035))
-	- ## 题目:
-		- 
-	- ## Code:
-		- ```C++
-		  #include<bits/stdc++.h>
+		  	for(int i=1;i
 		  using namespace std;
 		  #define int long long
 		  #define endl '\n'
 		  const int N=2e5+10;
 		  int n,col[N],siz[N],son[N],mx;
-		  unordered_map<int,int> cnt;
+		  unordered_map cnt;
 		  int ans[N],color,root;
 		  int indgr[N];
-		  vector<int>e[N];
+		  vectore[N];
 		  void dfs1(int x,int fa){ 
 		  	siz[x]=1;
 		  	for(int y:e[x]){
@@ -140,9 +107,8 @@ description: 树上启发式合并(DSU on Tree)相关的算法笔记和代码模
 		  	ios::sync_with_stdio(false);
 		  	cin.tie(nullptr);
 		  	cin>>n;
-		  	for(int i=1;i<=n;i++) cin>>col[i];
-		  	for(int i=1,x,y;i<n;i++){
-		  		cin>>x>>y;
+		  	for(int i=1;i>col[i];
+		  	for(int i=1,x,y;i>x>>y;
 		  		indgr[y]++;
 		  		e[x].push_back(y);
 		  		e[y].push_back(x);

@@ -1,18 +1,17 @@
 ---
 title: F. The Farthest Point
 date: 2026-03-09
-category: 计算几何
+category: 题解
 tags:
   - 算法
-description: F. The Farthest Point相关的算法笔记和代码模板
+outline: deep
 ---
 
-## 题目：
-	- # P12783 [ICPC 2024 Yokohama R] The Farthest Point
-	- ## 题目背景
+## 题目：- # P12783 [ICPC 2024 Yokohama R] The Farthest Point
+- ## 题目背景
 	  
 	  译自 [ICPC 2024 Yokohama Regional Contest](https://icpc.jp/2024/)。
-	- ## 题目描述
+- ## 题目描述
 	  
 	  一只蚂蚁位于一个长方体的顶点之一，记作**起始顶点**。长方体（rectangular cuboid）是一个所有面均为矩形的六面体。对于这只蚂蚁而言，长方体的表面就构成了它的整个「世界」。
 	  
@@ -26,64 +25,65 @@ description: F. The Farthest Point相关的算法笔记和代码模板
 	  > （$1\times 1\times 2$ 的长方体，和长方体的展开图）
 	  
 	  现在给出长方体的边长尺寸。请编写一个程序，计算起始顶点到最远点的距离。
-	- ## 输入格式
+- ## 输入格式
 	  
 	  仅一组数据，格式如下所示：
 	  
 	  > $a$ $b$ $c$
 	  
 	  正整数 $a,b,c$ 表示长方体尺寸为 $a\times b\times c$。保证 $1\le a,b,c\le 100$。
-	- ## 输出格式
+- ## 输出格式
 	  
 	  输出一行一个实数，表示起始顶点到最远点的距离。相对误差不应大于 $10^{-9}$。
-	- ## 输入输出样例1
-	- ### 输入1
+- ## 输入输出样例1
+- ### 输入1
 	  ```
 	  1 1 2
 	  ```
-	- ### 输出1
+- ### 输出1
 	  ```
 	  2.850438562747845
 	  ```
-	- ## 输入输出样例2
-	- ### 输入2
+- ## 输入输出样例2
+- ### 输入2
 	  ```
 	  10 10 10
 	  ```
-	- ### 输出2
+- ### 输出2
 	  ```
 	  22.360679774997898
 	  ```
-	- ## 输入输出样例3
-	- ### 输入3
+- ## 输入输出样例3
+- ### 输入3
 	  ```
 	  100 2 3
 	  ```
-	- ### 输出3
+- ### 输出3
 	  ```
 	  101.0503923792481
 	  ```
-	- ## 输入输出样例4
-	- ### 输入4
+- ## 输入输出样例4
+- ### 输入4
 	  ```
 	  2 3 5
 	  ```
-	- ### 输出4
+- ### 输出4
 	  ```
 	  7.093659140387279
 	  ```
-	- ## 输入输出样例5
-	- ### 输入5
+- ## 输入输出样例5
+- ### 输入5
 	  ```
 	  84 41 51
 	  ```
-	- ### 输出5
+- ### 输出5
 	  ```
 	  124.582755157578
 	  ```
 - ## Code1(标答思路1):
-	- ```C++
-	  #include<bits/stdc++.h>
+
+```C++
+	  #include
 	  using namespace std;
 	  #define int long long
 	  #define endl '\n'
@@ -107,22 +107,7 @@ description: F. The Farthest Point相关的算法笔记和代码模板
 	  	cin.tie(nullptr);
 	  	int t[4];cin>>t[1]>>t[2]>>t[3];
 	  	sort(t+1,t+4);double a=t[1],b=t[2],c=t[3];
-	  	if(a==b&&b==c){cout<<fixed<<setprecision(15)<<(sqrtl((double)5))*a<<endl;return 0;}
-	  
-	  	point p1={0,a+c},p2={b+c,a+b},p3={-a,-c};
-	  	point s1=(p1+p2)/2, s2=(p2+p3)/2;
-	  	double k1=_k(p1-p2),k2=_k(p3-p2);
-	  	double itrx=((s1.x*k1-s2.x*k2)-(s1.y-s2.y))/(k1-k2);
-	  	double itry=k1*(itrx-s1.x)+s1.y;
-	  	point itr={itrx,itry};
-	  	cout<<fixed<<setprecision(15)<<max(dis(itr,p1),sqrtl((a+b)*(a+b)+c*c));
-	  	return 0;
-	  }
-	  
-	  ```
-- ## Code2(三分套三分).函数是否具有凸性！
-	- ```C++
-	  #include<bits/stdc++.h>
+	  	if(a==b&&b==c){cout
 	  #define ld long double
 	  using namespace std;
 	  const ld eps=1e-9;
@@ -147,13 +132,7 @@ description: F. The Farthest Point相关的算法笔记和代码模板
 	  		while(abs(ry-ly)>eps){
 	  			ld dy=(ry-ly)/3, y1=ly+dy, y2=y1+dy;
 	  			ld s1=getans(x1,y1),s2=getans(x1,y2);
-	  			if(s1<s2) ly=y1;
-	  			else ry=y2;
-	  		}
-	  		ld s3=getans(x1,ly);
-	  
-	  		ly=0,ry=b;
-	  		while(abs(ry-ly)>eps){
+	  			if(s1eps){
 	  			ld dy=(ry-ly)/3, y1=ly+dy, y2=y1+dy;
 	  			ld s1=getans(x2,y1),s2=getans(x2,y2);
 	  			if(s1<s2) ly=y1;

@@ -4,7 +4,7 @@ date: 2026-03-09
 category: 题解
 tags:
   - 算法
-description: ICPC___CCPC数论铜银牌题相关的算法笔记和代码模板
+outline: deep
 ---
 
 - 以下是针对ICPC/CCPC铜牌/银牌难度整理的核心数论与数学题目（摘自各赛站真题），按知识点分类，附可在线提交的OJ平台链接：
@@ -14,8 +14,7 @@ description: ICPC___CCPC数论铜银牌题相关的算法笔记和代码模板
 - **题目**：K-Primes（ICPC 2020 Nanjing）
   **知识点**：质数筛、因子计数
   **链接**：https://codeforces.com/gym/102992/problem/K
-- **题目**：Prime Game（ICPC 2018 Nanjing）
-  **知识点**：质因数分解贡献法
+- **题目**：Prime Game（ICPC 2018 Nanjing）**知识点**：质因数分解贡献法
   **链接**：https://codeforces.com/gym/101981/problem/I
   
   ---
@@ -84,11 +83,11 @@ description: ICPC___CCPC数论铜银牌题相关的算法笔记和代码模板
   ---
 - ### 训练资源平台
   1. **CodeForces GYM**：
-	- 搜索比赛编号（如 `102992`, `101981`）
-	- 网址：https://codeforces.com/problemset
+- 搜索比赛编号（如 `102992`, `101981`）
+- 网址：https://codeforces.com/problemset
 	  
 	  2. **ICPC Archive**：
-	- 按年份/赛区筛选：https://icpc.global/regionals/finder/
+- 按年份/赛区筛选：https://icpc.global/regionals/finder/
 	  
 	  3. **可视化难度分级**：
 	  ▶ 铜牌题：CF评分 1400-1800

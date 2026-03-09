@@ -1,34 +1,22 @@
 ---
 title: xde的双哈希模板
-date: 2026-03-09
+date: 2025-08-05
 category: 字符串
 tags:
   - 算法
-description: xde的双哈希模板相关的算法笔记和代码模板
+outline: deep
 ---
 
 - ```C++
   typedef unsigned long long ul;
-  template<typename tp1,typename tp2,int N>
+  template
   struct Htb{
       static constexpr int M=1e7+19;
       int hd[M+3],to[N],ct;
       tp1 ed[N];tp2 w[N];
       static int hc(ul v){
-          v^=v<<13,v^=v>>7;
-          return (v^(v<<17))%M;
-      }
-      void ins(tp1 x,tp2 y){
-          int &p=hd[hc(x)];
-          ed[++ct]=x,to[ct]=p;
-          w[p=ct]=y;
-      }
-      int count(tp1 x){
-          for(int i=hd[hc(x)];i;i=to[i])
-              if(ed[i]==x)return 1;
-          return 0;
-      }
-      pair<tp2,bool>find(tp1 x){
+          v^=v>7;
+          return (v^(vfind(tp1 x){
           for(int i=hd[hc(x)];i;i=to[i])
               if(ed[i]==x)return mkp(w[i],true);
           return mkp(tp2(),false);
@@ -47,7 +35,7 @@ description: xde的双哈希模板相关的算法笔记和代码模板
   using ll=long long;
   using ull=unsigned long long;
   using LL=__int128_t;
-  template<typename tp1,typename tp2,int N>
+  template
   struct Htb{
       static constexpr int M=1e7+19;  // 哈希表模数
       int hd[M+3],to[N],ct;           // 链表头指针、下一节点指针、元素计数
@@ -55,24 +43,8 @@ description: xde的双哈希模板相关的算法笔记和代码模板
       tp2 w[N];                       // 值存储数组
       // 哈希计算函数
       static int hc(ull v){
-          v^=v<<13,v^=v>>7;  
-          return (v^(v<<17))%M;    
-      }
-      // 插入操作
-      void ins(tp1 x,tp2 y){//邻接表原理
-          int &p=hd[hc(x)];           // 获取哈希位置
-          ed[++ct]=x;                 // 存储键
-          to[ct]=p;                   // 链式存储
-          w[p=ct]=y;                  // 存储值
-      }
-      // 存在性检查
-      int count(tp1 x){
-          for(int i=hd[hc(x)];i;i=to[i])
-              if(ed[i]==x) return 1;   // 找到匹配值
-          return 0;                    // 未找到
-      }
-      // 查找操作
-      pair<tp2,bool> find(tp1 x){
+          v^=v>7;  
+          return (v^(v find(tp1 x){
           for(int i=hd[hc(x)];i;i=to[i])
               if(ed[i]==x) return mkp(w[i],true); // 返回值和存在标志
           return mkp(tp2(),false);     // 返回空值和不存在的标志
@@ -104,26 +76,8 @@ description: xde的双哈希模板相关的算法笔记和代码模板
   1. **哈希函数 `hc()`**
   ```cpp
   static int hc(unsigned long v) {
-    v ^= v << 13, v ^= v >> 7;  // 位混淆
-    return (v^(v<<17))%M;       // 三阶扩散
-  }
-  ```
-- 输入：键的机器字表示（需兼容`unsigned long long`）
-- 处理：三重位扰动增强随机性
-- 输出：桶下标 `[0, M-1]`
-  
-  2. **安全查找方法**
-  ```cpp
-  // 存在性检查
-  int count(string key) {
-    int pos = hc(key); 
-    for(int i=hd[pos]; i; i=to[i])
-        if(ed[i]==key) return 1;
-    return 0;
-  }
-  
-  // 值获取（推荐）
-  pair<Value, bool> find(string key) {
+    v ^= v > 7;  // 位混淆
+    return (v^(v find(string key) {
     int pos = hc(key);
     for(int i=hd[pos]; i; i=to[i])
         if(ed[i]==key) return {w[i], true};
@@ -181,20 +135,20 @@ description: xde的双哈希模板相关的算法笔记和代码模板
   
   // 特化哈希函数
   template<> 
-  int Htb<Point,int,100>::hc(unsigned long v) {
+  int Htb::hc(unsigned long v) {
     Point p = *((Point*)&v);
     return (p.x*131 + p.y) % M;
   }
   
   // 使用
-  Htb<Point, string, 100> pointMap;
+  Htb pointMap;
   pointMap.ins({1,2}, "origin");
   ```
   
   2. **统计频次（下标操作符妙用）**
   ```cpp
-  Htb<string, int, 1000> freq;
-  vector<string> words = {"a","b","a","c"};
+  Htb freq;
+  vector words = {"a","b","a","c"};
   
   for(auto& w : words) {
     int idx = freq[w]; // 隐式插入
@@ -208,21 +162,8 @@ description: xde的双哈希模板相关的算法笔记和代码模板
   3. **键值批量处理**
   ```cpp
   // 遍历所有元素
-  for(int i=1; i<=ht.ct; i++) {
-    cout << "Key: " << ht.ed[i] 
-         << " Val: " << ht.w[i] << endl;
-  }
-  
-  // 元素过滤
-  vector<int> keysToRemove;
-  for(int i=1; i<=ht.ct; i++){
-    if(ht.w[i] < 0) keysToRemove.push_back(i);
-  }
-  ```
-  
-  4. **哈希表复用模式**
-  ```cpp
-  Htb<long, int, 10000> lookup;
+  for(int i=1; i keysToRemove;
+  for(int i=1; i lookup;
   
   while(query--) {
     lookup.clear();  // 高效清空
@@ -233,12 +174,12 @@ description: xde的双哈希模板相关的算法笔记和代码模板
   ```
 - #### ⚠️ 关键注意事项
   1. **键类型约束**
-	- 需满足隐式转换到 `unsigned long`
-	- 对于复杂类型（如字符串），需特化哈希函数：
+- 需满足隐式转换到 `unsigned long`
+- 对于复杂类型（如字符串），需特化哈希函数：
 	  ```cpp
 	  // 字符串哈希特化
 	  template<>
-	  int Htb<string,int,100>::hc(string s) {
+	  int Htb::hc(string s) {
 	  unsigned long h = 0;
 	  for(char c : s) h = h*131 + c;
 	  return h % M;
@@ -247,16 +188,16 @@ description: xde的双哈希模板相关的算法笔记和代码模板
 	  
 	  2. **内存陷阱**
 	  ```cpp
-	  Htb<int, string, 500> table; // 分配内存：
+	  Htb table; // 分配内存：
 	                             // 桶数组: (1e7+3)*4 ≈ 40MB
 	                             // 键值数组: 500 * (4+ ?) 
 	  ```
-	- 桶数组`hd`占用：`(1e7+3)*4字节 ≈ 40MB`
-	- N值需谨慎设置（避免栈溢出）
+- 桶数组`hd`占用：`(1e7+3)*4字节 ≈ 40MB`
+- N值需谨慎设置（避免栈溢出）
 	  
 	  3. **并发安全**
-	- ❗ 非线程安全设计
-	- 写操作需加锁：
+- ❗ 非线程安全设计
+- 写操作需加锁：
 	  ```cpp
 	  mutex mtx;
 	  mtx.lock();
@@ -266,8 +207,8 @@ description: xde的双哈希模板相关的算法笔记和代码模板
 	  ```
 	  
 	  4. **删除操作限制**
-	- 原生不支持删除操作
-	- 替代方案：标记删除法
+- 原生不支持删除操作
+- 替代方案：标记删除法
 	  ```cpp
 	  // 删除标记值
 	  constexpr Value DELETED = /*特殊值*/; 
@@ -282,12 +223,12 @@ description: xde的双哈希模板相关的算法笔记和代码模板
 - #### 💡 推荐改进方案
   1. **动态扩容版**
   ```cpp
-  template<typename K, typename V>
+  template
   class DynamicHtb {
-    vector<int> hd;
-    vector<K> keys;
-    vector<V> vals;
-    vector<int> next;
+    vector hd;
+    vector keys;
+    vector vals;
+    vector next;
     int capacity;
   
     void resize(int new_size){
@@ -299,30 +240,15 @@ description: xde的双哈希模板相关的算法笔记和代码模板
   
   2. **增强安全性版**（在`operator[]`中初始化值）
   ```diff
-	- w[p=ct]=y; // 原版
+- w[p=ct]=y; // 原版
 	  + w[ct] = tp2{}; p=ct; // 初始化为默认值
 	  ```
 - #### 🏆 应用场景分析
   1. **算法竞赛优势**
    ```cpp
    // 典型题目：两数之和
-   Htb<int, int, 50000> seen;
-   for(int i=0; i<nums.size(); i++){
-       int comp = target - nums[i];
-       if(seen.count(comp))
-           return {seen.idx[comp], i};
-       seen.ins(nums[i], i);
-   }
-   ```
-	- **查找性能**：均摊O(1)时间复杂度
-	- **内存效率**：静态数组省去动态分配开销
-	  
-	  2. **高频访问缓存系统**
-	  ```cpp
-	  struct UserProfile{ /*用户数据*/ };
-	  constexpr int MAX_USERS = 1e6;
-	  
-	  Htb<UserID, UserProfile, MAX_USERS> userCache;
+   Htb seen;
+   for(int i=0; i userCache;
 	  
 	  // 获取用户数据（带缓存）
 	  UserProfile getProfile(UserID id) {
@@ -339,7 +265,7 @@ description: xde的双哈希模板相关的算法笔记和代码模板
 	  
 	  3. **高效去重系统**
 	  ```cpp
-	  Htb<BigDataType, bool, N> dedupSystem;
+	  Htb dedupSystem;
 	  
 	  bool isUnique(BigDataType data) {
 	  if(dedupSystem.count(data)) 
